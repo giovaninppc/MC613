@@ -43,7 +43,7 @@ BEGIN
 	G1: FOR i IN 0 to 3 GENERATE
 		G(i) <= X(i) AND Y(i);
 		P(i) <= X(i) OR  Y(i);
-		C(i+1) <= G(i) OR (P(0) AND C(0));
+		C(i+1) <= G(i) OR (P(i) AND C(i));
 		END GENERATE;
 		
 	--Perguntar depois
