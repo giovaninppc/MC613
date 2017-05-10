@@ -1,0 +1,28 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+LIBRARY work;
+USE work.CLA4_package.all;
+
+ENTITY CLA8 IS 
+
+	PORT(
+		X, Y: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+		Cin:  IN STD_LOGIC;
+		V, Cout: OUT STD_LOGIC;
+		S:   OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
+	);
+
+END CLA8;
+
+ARCHITECTURE Structure OF CLA8 IS
+	SIGNAL Cin2: STD_LOGIC;
+BEGIN
+
+	cl41: CLA4 PORT MAP(
+		X(3 DOWNTO 0), Y(3 DOWNTO 0), Cin, Cin2, S(3 DOWNTO 0)
+	);
+	cl42: CLA4 PORT MAP(
+		X(7 DOWNTO 4), Y(7 DOWNTO 4), Cin2, Cout, S(7 DOWNTO 4)
+	);
+
+END Structure;
