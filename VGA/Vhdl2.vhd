@@ -20,16 +20,25 @@ END SYNC;
 ARCHITECTURE MAIN OF SYNC IS
 -----1280x1024 @ 60 Hz pixel clock 108 MHz
 SIGNAL RGB: STD_LOGIC_VECTOR(3 downto 0);
-SIGNAL SQ_X1,SQ_Y1: INTEGER RANGE 0 TO 1688:=500;
-SIGNAL SQ_X2,SQ_Y2: INTEGER RANGE 0 TO 1688:=600;
+SIGNAL SQ_X1: INTEGER RANGE 0 TO 1688:=500;
+SIGNAL SQ_Y1: INTEGER RANGE 0 TO 1688:=500;
+SIGNAL SQ_X2: INTEGER RANGE 0 TO 1688:=600;
+SIGNAL SQ_Y2: INTEGER RANGE 0 TO 1688:=600;
 SIGNAL DRAW1,DRAW2:STD_LOGIC:='0';
 SIGNAL HPOS: INTEGER RANGE 0 TO 1688:=0;
 SIGNAL VPOS: INTEGER RANGE 0 TO 1066:=0;
+SIGNAL X1size, Y1size, X2size, Y2size : INTEGER;
 BEGIN
 
+-- Definindo o tamanho dos jogadores
+X1size <= 20;
+Y1size <= 30;
+X2size <= 80;
+Y2size <= 10;
+
 -- Esses processos calculam e retornam 1 na posicao de desenhar os quadrados
-SQ(HPOS,VPOS,SQ_X1,SQ_Y1,RGB,DRAW1);
-SQ(HPOS,VPOS,SQ_X2,SQ_Y2,RGB,DRAW2);
+SQ(HPOS,VPOS,SQ_X1,SQ_Y1,X1size,Y1size,RGB,DRAW1);
+SQ(HPOS,VPOS,SQ_X2,SQ_Y2,X2size,Y2size, RGB,DRAW2);
 
 
  PROCESS(CLK)
@@ -90,6 +99,15 @@ IF(CLK'EVENT AND CLK='1')THEN
 			  ELSE
 			  VPOS<=0;
 			  
+					-- Tentativa de gravidade -- WORKING - O parametro de parada deve ser o chao!
+					IF SQ_Y1 < (1050 - Y1size) THEN
+						SQ_Y1<=SQ_Y1+2;
+					END IF;
+					
+					IF SQ_Y2 < (1050 - Y2size) THEN
+						SQ_Y2<=SQ_Y2+2;
+					END IF;
+					
 					-- Faz a movimentacao!!!! Alterar o Keys pelo teclado depois!!!
 					-- Quadrado 1
 			      IF(S(0)='1')THEN
@@ -102,9 +120,11 @@ IF(CLK'EVENT AND CLK='1')THEN
 						  IF(KEYS(2)='0')THEN
 						  SQ_Y1<=SQ_Y1-2;
 						 END IF;
-						 IF(KEYS(3)='0')THEN
-						  SQ_Y1<=SQ_Y1+2;
-						 END IF;  
+						 
+						 -- Sem necessidade de um comando "para baixo"
+						 --IF(KEYS(3)='0')THEN
+						  --SQ_Y1<=SQ_Y1+2;
+						 --END IF;  
 					END IF;
 					-- Quadrado 2
 			      IF(S(1)='1')THEN
@@ -117,9 +137,11 @@ IF(CLK'EVENT AND CLK='1')THEN
 						  IF(KEYS(2)='0')THEN
 						  SQ_Y2<=SQ_Y2-2;
 						 END IF;
-						 IF(KEYS(3)='0')THEN
-						  SQ_Y2<=SQ_Y2+2;
-						 END IF; 
+						 
+						 -- Sem necessidade de um comando "para baixo"
+						 --IF(KEYS(3)='0')THEN
+						  --SQ_Y2<=SQ_Y2+2;
+						 --END IF; 
 					END IF;  
 		      END IF;
 		END IF;
