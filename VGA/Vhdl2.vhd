@@ -21,7 +21,7 @@ ARCHITECTURE MAIN OF SYNC IS
 -----1280x1024 @ 60 Hz pixel clock 108 MHz
 SIGNAL RGB: STD_LOGIC_VECTOR(3 downto 0);
 SIGNAL SQ_X1,SQ_Y1: INTEGER RANGE 0 TO 1688:=500;
-SIGNAL SQ_X2,SQ_Y2: INTEGER RANGE 0 TO 1688:=500;
+SIGNAL SQ_X2,SQ_Y2: INTEGER RANGE 0 TO 1688:=600;
 SIGNAL DRAW1,DRAW2:STD_LOGIC:='0';
 SIGNAL HPOS: INTEGER RANGE 0 TO 1688:=0;
 SIGNAL VPOS: INTEGER RANGE 0 TO 1066:=0;
@@ -66,9 +66,18 @@ IF(CLK'EVENT AND CLK='1')THEN
 		
 		IF (DRAW1='0' AND DRAW2='0')THEN
 			-- Adicionar desenho do mapa
-		   R<=(others=>'0');
-	      G<=(others=>'0');
-	      B<=(others=>'0');
+			
+			IF VPOS > 1050 THEN  -- testando linha do chao
+				R<=(others=>'1');
+				G<=(others=>'1');
+				B<=(others=>'1');
+			
+			ELSE 
+				R<=(others=>'0');
+				G<=(others=>'0');
+				B<=(others=>'0');
+			
+			END IF;
 		END IF;
 		
 		
