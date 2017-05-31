@@ -20,7 +20,7 @@ BEGIN
 			IF Clear = '1' THEN
 				BCD0 <= "0000";
 			ELSIF E = '1' THEN
-				IF BCD0 = N THEN
+				IF BCD0 = (N - 1) THEN  -- Aplica o modulo
 					BCD0 <= "0000";
 				ELSE
 					BCD0 <= BCD0 + '1';
