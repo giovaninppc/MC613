@@ -31,8 +31,19 @@ SIGNAL SQ_Y1: INTEGER RANGE 0 TO 1688:=500;
 SIGNAL SQ_X2: INTEGER RANGE 0 TO 1688:=600;
 SIGNAL SQ_Y2: INTEGER RANGE 0 TO 1688:=600;
 SIGNAL DRAW1,DRAW2:STD_LOGIC:='0';
+
+-- HORIZONTAL LINE
+-- 1280 pixels visiveis
+--    48 FP, 248 BP, 112 sync pulse
+-- TOTAL: 1066 pixels
 SIGNAL HPOS: INTEGER RANGE 0 TO 1688:=0;
+-- VERTICAL LINE
+-- 1024 pixels visiveis
+-- 	1 FP, 38 BP, 3 Sync
+-- TOTAL: 1066 pixels
 SIGNAL VPOS: INTEGER RANGE 0 TO 1066:=0;
+
+-- Signals to Create Players with respective size
 SIGNAL X1size, Y1size, X2size, Y2size : INTEGER;
 BEGIN
 
@@ -78,16 +89,22 @@ IF(CLK'EVENT AND CLK='1')THEN
 		  END IF;
       END IF;
 		
-		
+		-- DESENHA O MAPA
+		-- Posicao (0,0) comeca em (HPOS, VPOS) = (408, 42), por conta dos pixels de sincronizacao
 		IF (DRAW1='0' AND DRAW2='0')THEN
-			-- Adicionar desenho do mapa
 			
-			IF VPOS > 1050 THEN  -- testando linha do chao
+			-- Desenhando um quadrado em cima
+			IF((HPOS < (408+50)) AND (VPOS < (42+50)))THEN
 				R<=(others=>'1');
 				G<=(others=>'1');
 				B<=(others=>'1');
 			
-			ELSE 
+			ELSIF VPOS > 1050 THEN  -- testando linha do chao WORKING
+				R<=(others=>'1');
+				G<=(others=>'1');
+				B<=(others=>'1');
+			
+			ELSE 							-- Pinta o resto de preto
 				R<=(others=>'0');
 				G<=(others=>'0');
 				B<=(others=>'0');
@@ -151,11 +168,14 @@ IF(CLK'EVENT AND CLK='1')THEN
 					END IF;  
 		      END IF;
 		END IF;
+		
+	-- Sync Positions --
    IF((HPOS>0 AND HPOS<408) OR (VPOS>0 AND VPOS<42))THEN
-	R<=(others=>'0');
-	G<=(others=>'0');
-	B<=(others=>'0');
+		R<=(others=>'0');
+		G<=(others=>'0');
+		B<=(others=>'0');
 	END IF;
+	
    IF(HPOS>48 AND HPOS<160)THEN----HSYNC
 	   HSYNC<='0';
 	ELSE
