@@ -1,5 +1,5 @@
 Assembler report for VGA
-Sat Jun  3 19:50:23 2017
+Sat Jun  3 20:00:03 2017
 Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Sat Jun  3 19:50:23 2017 ;
+; Assembler Status      ; Successful - Sat Jun  3 20:00:03 2017 ;
 ; Revision Name         ; VGA                                   ;
 ; Top-level Entity Name ; VGA                                   ;
 ; Family                ; Cyclone II                            ;
@@ -94,8 +94,8 @@ applicable agreement for further details.
 ; Option         ; Setting          ;
 +----------------+------------------+
 ; Device         ; EP2C20F484C7     ;
-; JTAG usercode  ; 0x00245908       ;
-; Checksum       ; 0x00245908       ;
+; JTAG usercode  ; 0x0024B7AC       ;
+; Checksum       ; 0x0024B7AC       ;
 +----------------+------------------+
 
 
@@ -106,7 +106,7 @@ applicable agreement for further details.
 +--------------------+--------------+
 ; Device             ; EPCS16       ;
 ; JTAG usercode      ; 0x00000000   ;
-; Checksum           ; 0x1DC9B426   ;
+; Checksum           ; 0x1DCBBD66   ;
 ; Compression Ratio  ; 3            ;
 +--------------------+--------------+
 
@@ -117,13 +117,13 @@ applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II 32-bit Assembler
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Sat Jun  3 19:50:22 2017
+    Info: Processing started: Sat Jun  3 20:00:02 2017
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off VGA -c VGA
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
 Info: Quartus II 32-bit Assembler was successful. 0 errors, 0 warnings
     Info: Peak virtual memory: 346 megabytes
-    Info: Processing ended: Sat Jun  3 19:50:23 2017
+    Info: Processing ended: Sat Jun  3 20:00:03 2017
     Info: Elapsed time: 00:00:01
     Info: Total CPU time (on all processors): 00:00:01
 

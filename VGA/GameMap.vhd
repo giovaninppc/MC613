@@ -44,29 +44,28 @@ BEGIN
 		DRAWMAP<='1';
 		
 -- Map Escada 1 d1
-	ELSIF ((Ycur > Ys + 925) AND (Ycur < Ys + 945) AND (Xcur > Xs + 280) AND (Xcur < Xs + 300)) THEN
+	ELSIF ((Ycur > Ys + 925) AND (Ycur < Ys + 945) AND (Xcur > Xs + 280) AND (Xcur < Xs + 302)) THEN
 		DRAWMAP<='1';
 -- Map Escada 1 d2
-	ELSIF ((Ycur > Ys + 905) AND (Ycur < Ys + 925) AND (Xcur > Xs + 260) AND (Xcur < Xs + 280)) THEN
+	ELSIF ((Ycur > Ys + 905) AND (Ycur < Ys + 927) AND (Xcur > Xs + 260) AND (Xcur < Xs + 282)) THEN
 		DRAWMAP<='1';
 -- Map Escada 1 d3
-	ELSIF ((Ycur > Ys + 885) AND (Ycur < Ys + 905) AND (Xcur > Xs + 240) AND (Xcur < Xs + 260)) THEN
+	ELSIF ((Ycur > Ys + 885) AND (Ycur < Ys + 907) AND (Xcur > Xs + 240) AND (Xcur < Xs + 262)) THEN
 		DRAWMAP<='1';
 -- Map Escada 1 d4
-	ELSIF ((Ycur > Ys + 865) AND (Ycur < Ys + 885) AND (Xcur > Xs + 220) AND (Xcur < Xs + 240)) THEN
+	ELSIF ((Ycur > Ys + 865) AND (Ycur < Ys + 887) AND (Xcur > Xs + 220) AND (Xcur < Xs + 242)) THEN
 		DRAWMAP<='1';
 -- Map Escada 1 d5
-	ELSIF ((Ycur > Ys + 845) AND (Ycur < Ys + 865) AND (Xcur > Xs + 200) AND (Xcur < Xs + 220)) THEN
+	ELSIF ((Ycur > Ys + 845) AND (Ycur < Ys + 867) AND (Xcur > Xs + 200) AND (Xcur < Xs + 222)) THEN
 		DRAWMAP<='1';
 -- Map Escada 1 d6
-	ELSIF ((Ycur > Ys + 825) AND (Ycur < Ys + 845) AND (Xcur > Xs + 180) AND (Xcur < Xs + 200)) THEN
+	ELSIF ((Ycur > Ys + 825) AND (Ycur < Ys + 847) AND (Xcur > Xs + 180) AND (Xcur < Xs + 202)) THEN
 		DRAWMAP<='1';
 		
 -- Map B1
-	ELSIF ((Ycur > Ys + 825) AND (Ycur < Ys + 845) AND (Xcur > Xs + 0) AND (Xcur < Xs + 180))   THEN
+	ELSIF ((Ycur > Ys + 825) AND (Ycur < Ys + 847) AND (Xcur > Xs + 0) AND (Xcur < Xs + 181))   THEN
 		DRAWMAP<='1';
 		
-	
  -- END
 	ELSE
 		DRAWMAP<='0';
