@@ -76,6 +76,8 @@ SIGNAL dirQ1X1, dirQ1X2, dirQ2X1, dirQ2X2 : STD_LOGIC := '0';
 SIGNAL SQ1_esq  : STD_LOGIC := '1';
 SIGNAL SQ2_esq  : STD_LOGIC := '1';
 SIGNAL esqQ1X1, esqQ1X2, esqQ2X1, esqQ2X2 : STD_LOGIC := '0';
+-- Indicador de contato em cima
+SIGNAL SQ1_up, SQ2_up : STD_LOGIC := '0';
 -- Indicadores de posicao dos 4 cantos dos jogadores
 --
 -- (QnX1,QnY1) _________________ (QnX2,QnY1)
@@ -127,6 +129,8 @@ SQ1_dir <= (dirQ1X1 OR dirQ1X2);
 dMap(Q1X1,Q1Y1,esqQ1X1);
 dmap(Q1X1,Q1Y2m,esqQ1X2);
 SQ1_esq <= (esqQ1X1 OR esqQ1X2);
+-- Contato superior
+SQ1_up <= dirQ1X1 OR esqQ1X1;
 
 -- Jogador 2
 -- Inicia indicadores de posicao
@@ -147,6 +151,8 @@ SQ2_dir <= (dirQ2X1 OR dirQ2X2);
 dMap(Q2X1,Q2Y1,esqQ2X1);
 dmap(Q2X1,Q2Y2m,esqQ2X2);
 SQ2_esq <= (esqQ2X1 OR esqQ2X2);
+-- Contato superior
+SQ2_up <= dirQ2X1 OR esqQ2X1;
  
 -- INICIO DA LOGICA E IMPRESSAO EM VGA
  PROCESS(CLK)
@@ -217,14 +223,22 @@ IF(CLK'EVENT AND CLK='1')THEN
 					
 					-- Executa o Salto
 					IF SQ1_Jump > 0 THEN
-						SQ_Y1<=SQ_Y1-2;
-						SQ1_Jump <= SQ1_Jump - 1;
+						IF SQ1_up = '0' THEN
+							SQ_Y1<=SQ_Y1-2;
+							SQ1_Jump <= SQ1_Jump - 1;
+						ELSE
+							SQ1_Jump <= 0;
+						END IF;
 					END IF;
 					
 					-- Executa o Salto
 					IF SQ2_Jump > 0 THEN
-						SQ_Y2<=SQ_Y2-2;
-						SQ2_Jump <= SQ2_Jump - 1;
+						IF SQ2_up = '0' THEN
+							SQ_Y2<=SQ_Y2-2;
+							SQ2_Jump <= SQ2_Jump - 1;
+						ELSE
+							SQ2_Jump <= 0;
+						END IF;
 					END IF;
 					
 					-- Faz a movimentacao!!!! TODO: Alterar o Keys pelo teclado depois!!!
@@ -240,7 +254,7 @@ IF(CLK'EVENT AND CLK='1')THEN
 						 END IF;
 						 -- Pulo
 						  IF(KEYS(2)='0' AND SQ1_noAR = '0')THEN
-						  SQ1_Jump <= 25;
+						  SQ1_Jump <= 30;
 						 END IF;
 						 
 					END IF;
@@ -256,7 +270,7 @@ IF(CLK'EVENT AND CLK='1')THEN
 						 END IF;
 						 -- Pulo
 						  IF(KEYS(2)='0' AND SQ2_noAR = '0')THEN
-						  SQ2_Jump <= 25;
+						  SQ2_Jump <= 30;
 						 END IF;
 						  
 					END IF;  
