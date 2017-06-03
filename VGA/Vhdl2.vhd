@@ -66,6 +66,8 @@ SIGNAL DRAW1,DRAW2:STD_LOGIC:='0';
 SIGNAL SQ1_noAR : STD_LOGIC := '1';
 SIGNAL SQ2_noAR : STD_LOGIC := '1';
 SIGNAL arQ1X1, arQ1X2, arQ2X1, arQ2X2 : STD_LOGIC := '0';
+-- Indicador de Salto
+SIGNAL SQ1_Jump, SQ2_Jump : INTEGER := 0;
 -- Indicador de contato a direita
 SIGNAL SQ1_dir  : STD_LOGIC := '1';
 SIGNAL SQ2_dir  : STD_LOGIC := '1';
@@ -204,7 +206,7 @@ IF(CLK'EVENT AND CLK='1')THEN
 			  ELSE
 			  VPOS<=0;
 			  
-					-- Tentativa de gravidade -- WORKING
+					-- Simulador de gravidade
 					IF SQ1_noAR = '1' THEN
 						SQ_Y1<=SQ_Y1+2;
 					END IF;
@@ -213,8 +215,20 @@ IF(CLK'EVENT AND CLK='1')THEN
 						SQ_Y2<=SQ_Y2+2;
 					END IF;
 					
+					-- Executa o Salto
+					IF SQ1_Jump > 0 THEN
+						SQ_Y1<=SQ_Y1-2;
+						SQ1_Jump <= SQ1_Jump - 1;
+					END IF;
+					
+					-- Executa o Salto
+					IF SQ2_Jump > 0 THEN
+						SQ_Y2<=SQ_Y2-2;
+						SQ2_Jump <= SQ2_Jump - 1;
+					END IF;
+					
 					-- Faz a movimentacao!!!! TODO: Alterar o Keys pelo teclado depois!!!
-					-- Quadrado 1
+					-- Jogador 1
 			      IF(S(0)='1')THEN
 						-- Mover para a direita
 					    IF(KEYS(0)='0' AND SQ1_dir = '0')THEN
@@ -225,12 +239,12 @@ IF(CLK'EVENT AND CLK='1')THEN
 						  SQ_X1<=SQ_X1-2;
 						 END IF;
 						 -- Pulo
-						  IF(KEYS(2)='0')THEN
-						  SQ_Y1<=SQ_Y1-2;
+						  IF(KEYS(2)='0' AND SQ1_noAR = '0')THEN
+						  SQ1_Jump <= 25;
 						 END IF;
 						 
 					END IF;
-					-- Quadrado 2
+					-- Jogador 2
 			      IF(S(1)='1')THEN
 						-- Mover para a direita
 					    IF(KEYS(0)='0' AND SQ2_dir = '0')THEN
@@ -241,8 +255,8 @@ IF(CLK'EVENT AND CLK='1')THEN
 						  SQ_X2<=SQ_X2-2;
 						 END IF;
 						 -- Pulo
-						  IF(KEYS(2)='0')THEN
-						  SQ_Y2<=SQ_Y2-2;
+						  IF(KEYS(2)='0' AND SQ2_noAR = '0')THEN
+						  SQ2_Jump <= 25;
 						 END IF;
 						  
 					END IF;  
