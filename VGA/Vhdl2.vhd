@@ -2,6 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.my.all;
+use work.GameMap.all;
 
 -- Unidade de Controle
 -- Responsavel por calcular as posicoes de desenho e passar para a unidade de VGA
@@ -24,6 +25,8 @@ END SYNC;
 
 
 ARCHITECTURE MAIN OF SYNC IS
+
+---------- SCREEN Signals ----------
 -----1280x1024 @ 60 Hz pixel clock 108 MHz
 SIGNAL RGB: STD_LOGIC_VECTOR(3 downto 0);
 SIGNAL SQ_X1: INTEGER RANGE 0 TO 1688:=500;
@@ -43,8 +46,13 @@ SIGNAL HPOS: INTEGER RANGE 0 TO 1688:=0;
 -- TOTAL: 1066 pixels
 SIGNAL VPOS: INTEGER RANGE 0 TO 1066:=0;
 
+---------- Players Signals ----------
 -- Signals to Create Players with respective size
 SIGNAL X1size, Y1size, X2size, Y2size : INTEGER;
+
+---------- Map Signals ----------
+SIGNAL DRAWMAP: STD_LOGIC:='0';
+
 BEGIN
 
 -- Definindo o tamanho dos jogadores
@@ -55,8 +63,10 @@ Y2size <= 10;
 
 -- Esses processos calculam e retornam 1 na posicao de desenhar os quadrados
 SQ(HPOS,VPOS,SQ_X1,SQ_Y1,X1size,Y1size,RGB,DRAW1);
-SQ(HPOS,VPOS,SQ_X2,SQ_Y2,X2size,Y2size, RGB,DRAW2);
+SQ(HPOS,VPOS,SQ_X2,SQ_Y2,X2size,Y2size,RGB,DRAW2);
 
+-- Esse processos retorna 1 na posicao de desenhar o mapa
+dMap(HPOS,VPOS,DRAWMAP);
 
  PROCESS(CLK)
  BEGIN
@@ -93,13 +103,8 @@ IF(CLK'EVENT AND CLK='1')THEN
 		-- Posicao (0,0) comeca em (HPOS, VPOS) = (408, 42), por conta dos pixels de sincronizacao
 		IF (DRAW1='0' AND DRAW2='0')THEN
 			
-			-- Desenhando um quadrado em cima
-			IF((HPOS < (408+50)) AND (VPOS < (42+50)))THEN
-				R<=(others=>'1');
-				G<=(others=>'1');
-				B<=(others=>'1');
-			
-			ELSIF VPOS > 1050 THEN  -- testando linha do chao WORKING
+											-- Desenhando o mapa
+			IF DRAWMAP = '1' THEN
 				R<=(others=>'1');
 				G<=(others=>'1');
 				B<=(others=>'1');
