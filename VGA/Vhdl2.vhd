@@ -62,7 +62,35 @@ SIGNAL SQ_Y1: INTEGER RANGE 0 TO 1688:=910;
 SIGNAL SQ_X2: INTEGER RANGE 0 TO 1688:=460;
 SIGNAL SQ_Y2: INTEGER RANGE 0 TO 1688:=910;
 SIGNAL DRAW1,DRAW2:STD_LOGIC:='0';
-
+-- Indicador de estar no Ar
+SIGNAL SQ1_noAR : STD_LOGIC := '1';
+SIGNAL SQ2_noAR : STD_LOGIC := '1';
+SIGNAL arQ1X1, arQ1X2, arQ2X1, arQ2X2 : STD_LOGIC := '0';
+-- Indicador de contato a direita
+SIGNAL SQ1_dir  : STD_LOGIC := '1';
+SIGNAL SQ2_dir  : STD_LOGIC := '1';
+SIGNAL dirQ1X1, dirQ1X2, dirQ2X1, dirQ2X2 : STD_LOGIC := '0';
+-- Indicador de contato a esquerda
+SIGNAL SQ1_esq  : STD_LOGIC := '1';
+SIGNAL SQ2_esq  : STD_LOGIC := '1';
+SIGNAL esqQ1X1, esqQ1X2, esqQ2X1, esqQ2X2 : STD_LOGIC := '0';
+-- Indicadores de posicao dos 4 cantos dos jogadores
+--
+-- (QnX1,QnY1) _________________ (QnX2,QnY1)
+--            |                |
+--            |                |
+--            |                |
+--            |                |
+--            |    *Player*    |
+--            |                |
+--            |                |
+--            |                |
+--            |________________|
+-- (QnX1,QnY2)                   (QnX2,QnY2)
+-- O Valor QnY2m marca um ponto acima da base nas posicoes (X,QnY2)
+-- Usado para marcar colisoes laterais, pois o QnY2 teria conflito com o chao
+SIGNAL Q1X1, Q1X2, Q1Y1, Q1Y2, Q1Y2m : INTEGER;
+SIGNAL Q2X1, Q2X2, Q2Y1, Q2Y2, Q2Y2m : INTEGER;
 ---------- Map Signals ----------
 SIGNAL DRAWMAP: STD_LOGIC:='0';
 
@@ -72,9 +100,53 @@ BEGIN
 SQ(HPOS,VPOS,SQ_X1,SQ_Y1,X1size,Y1size,RGB,DRAW1);
 SQ(HPOS,VPOS,SQ_X2,SQ_Y2,X2size,Y2size,RGB,DRAW2);
 
--- Esse processos retorna 1 na posicao de desenhar o mapa
+-- Verifica se eh para desenhar uma parte do mapa
+-- Esse processos retorna 1 se existe um mapa na posicao passada como parametro
 dMap(HPOS,VPOS,DRAWMAP);
 
+-- LIMITES DE POSICAO DOS JOGADORES
+
+-- Jogador 1
+-- Inicia indicadores de posiçao
+Q1X1 <= SQ_X1 - 1;
+Q1X2 <= SQ_X1 + X1size + 1;
+Q1Y1 <= SQ_Y1 + 1;
+Q1Y2 <= SQ_Y1 + Y1size + 1;
+Q1Y2m<= SQ_Y1 + Y1size - 1;
+-- Verifica se esta no ar
+dMap(Q1X1,Q1Y2,arQ1X1); -- Verifica contato base em X1
+dMap(Q1X2,Q1Y2,arQ1X2); -- Verifica contato base em X2
+SQ1_noAR <= NOT(arQ1X1 OR arQ1X2);
+-- Verifica contato direita
+dMap(Q1X2,Q1Y1,dirQ1X1);
+dmap(Q1X2,Q1Y2m,dirQ1X2);
+SQ1_dir <= (dirQ1X1 OR dirQ1X2);
+--Verifica contato esquerda
+dMap(Q1X1,Q1Y1,esqQ1X1);
+dmap(Q1X1,Q1Y2m,esqQ1X2);
+SQ1_esq <= (esqQ1X1 OR esqQ1X2);
+
+-- Jogador 2
+-- Inicia indicadores de posicao
+Q2X1 <= SQ_X2 - 1;
+Q2X2 <= SQ_X2 + X2size + 1;
+Q2Y1 <= SQ_Y2 + 1;
+Q2Y2 <= SQ_Y2 + Y2size + 1;
+Q2Y2m<= SQ_Y2 + Y2size - 1;
+-- Verifica se esta no ar
+dMap(Q2X1,Q2Y2,arQ2X1); -- Verifica contato base em X1
+dMap(Q2X2,Q2Y2,arQ2X2); -- Verifica contato base em X2
+SQ2_noAR <= NOT(arQ2X1 OR arQ2X2);
+-- Verifica conato direita
+dMap(Q2X2,Q2Y1,dirQ2X1);
+dmap(Q2X2,Q2Y2m,dirQ2X2);
+SQ2_dir <= (dirQ2X1 OR dirQ2X2);
+-- Verifica contato esquerda
+dMap(Q2X1,Q2Y1,esqQ2X1);
+dmap(Q2X1,Q2Y2m,esqQ2X2);
+SQ2_esq <= (esqQ2X1 OR esqQ2X2);
+ 
+-- INICIO DA LOGICA E IMPRESSAO EM VGA
  PROCESS(CLK)
  BEGIN
 IF(CLK'EVENT AND CLK='1')THEN
@@ -107,11 +179,9 @@ IF(CLK'EVENT AND CLK='1')THEN
       END IF;
 		
 		-- DESENHA O MAPA
-		-- Posicao (0,0) comeca em (HPOS, VPOS) = (408, 42), por conta dos pixels de sincronizacao
 		IF (DRAW1='0' AND DRAW2='0')THEN
 			
-											-- Desenhando o mapa
-			IF DRAWMAP = '1' THEN
+			IF DRAWMAP = '1' THEN	-- Desenhando o mapa
 				R<=(others=>'1');
 				G<=(others=>'1');
 				B<=(others=>'1');
@@ -134,49 +204,41 @@ IF(CLK'EVENT AND CLK='1')THEN
 			  ELSE
 			  VPOS<=0;
 			  
-					-- Tentativa de gravidade -- WORKING - O parametro de parada deve ser o chao!
-					IF SQ_Y1 < (1050 - Y1size) THEN
+					-- Tentativa de gravidade -- WORKING
+					IF SQ1_noAR = '1' THEN
 						SQ_Y1<=SQ_Y1+2;
 					END IF;
 					
-					IF SQ_Y2 < (1050 - Y2size) THEN
+					IF SQ2_noAR = '1' THEN
 						SQ_Y2<=SQ_Y2+2;
 					END IF;
 					
-					-- Faz a movimentacao!!!! Alterar o Keys pelo teclado depois!!!
+					-- Faz a movimentacao!!!! TODO: Alterar o Keys pelo teclado depois!!!
 					-- Quadrado 1
 			      IF(S(0)='1')THEN
-					    IF(KEYS(0)='0')THEN
+					    IF(KEYS(0)='0' AND SQ1_dir = '0')THEN
 						  SQ_X1<=SQ_X1+2;
 						 END IF;
-                   IF(KEYS(1)='0')THEN
+                   IF(KEYS(1)='0' AND SQ1_esq = '0')THEN
 						  SQ_X1<=SQ_X1-2;
 						 END IF;
 						  IF(KEYS(2)='0')THEN
 						  SQ_Y1<=SQ_Y1-2;
 						 END IF;
 						 
-						 -- Sem necessidade de um comando "para baixo"
-						 --IF(KEYS(3)='0')THEN
-						  --SQ_Y1<=SQ_Y1+2;
-						 --END IF;  
 					END IF;
 					-- Quadrado 2
 			      IF(S(1)='1')THEN
-					    IF(KEYS(0)='0')THEN
+					    IF(KEYS(0)='0' AND SQ2_dir = '0')THEN
 						  SQ_X2<=SQ_X2+2;
 						 END IF;
-                   IF(KEYS(1)='0')THEN
+                   IF(KEYS(1)='0' AND SQ2_esq = '0')THEN
 						  SQ_X2<=SQ_X2-2;
 						 END IF;
 						  IF(KEYS(2)='0')THEN
 						  SQ_Y2<=SQ_Y2-2;
 						 END IF;
-						 
-						 -- Sem necessidade de um comando "para baixo"
-						 --IF(KEYS(3)='0')THEN
-						  --SQ_Y2<=SQ_Y2+2;
-						 --END IF; 
+						  
 					END IF;  
 		      END IF;
 		END IF;
