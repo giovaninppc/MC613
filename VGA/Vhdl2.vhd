@@ -216,12 +216,15 @@ IF(CLK'EVENT AND CLK='1')THEN
 					-- Faz a movimentacao!!!! TODO: Alterar o Keys pelo teclado depois!!!
 					-- Quadrado 1
 			      IF(S(0)='1')THEN
+						-- Mover para a direita
 					    IF(KEYS(0)='0' AND SQ1_dir = '0')THEN
 						  SQ_X1<=SQ_X1+2;
 						 END IF;
+						 -- Mover para a esquerda
                    IF(KEYS(1)='0' AND SQ1_esq = '0')THEN
 						  SQ_X1<=SQ_X1-2;
 						 END IF;
+						 -- Pulo
 						  IF(KEYS(2)='0')THEN
 						  SQ_Y1<=SQ_Y1-2;
 						 END IF;
@@ -229,12 +232,15 @@ IF(CLK'EVENT AND CLK='1')THEN
 					END IF;
 					-- Quadrado 2
 			      IF(S(1)='1')THEN
+						-- Mover para a direita
 					    IF(KEYS(0)='0' AND SQ2_dir = '0')THEN
 						  SQ_X2<=SQ_X2+2;
 						 END IF;
+						 -- Mover para a esquerda
                    IF(KEYS(1)='0' AND SQ2_esq = '0')THEN
 						  SQ_X2<=SQ_X2-2;
 						 END IF;
+						 -- Pulo
 						  IF(KEYS(2)='0')THEN
 						  SQ_Y2<=SQ_Y2-2;
 						 END IF;
