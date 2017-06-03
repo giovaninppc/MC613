@@ -29,11 +29,14 @@ ARCHITECTURE MAIN OF SYNC IS
 ---------- SCREEN Signals ----------
 -----1280x1024 @ 60 Hz pixel clock 108 MHz
 SIGNAL RGB: STD_LOGIC_VECTOR(3 downto 0);
-SIGNAL SQ_X1: INTEGER RANGE 0 TO 1688:=500;
-SIGNAL SQ_Y1: INTEGER RANGE 0 TO 1688:=500;
-SIGNAL SQ_X2: INTEGER RANGE 0 TO 1688:=600;
-SIGNAL SQ_Y2: INTEGER RANGE 0 TO 1688:=600;
-SIGNAL DRAW1,DRAW2:STD_LOGIC:='0';
+
+-- A tela funciona como um plano cartesiano 1280 x 1024
+-- Onde o ponto (0,0) ´e o canto superior esquerdo
+-- E cresce de cima para baixo em Y e da esquedar para a direita em X
+-- Existem alguns "pixels" que nao sao impressos na tela
+-- X = [0, 408]
+-- Y = [0, 42]
+-- O tempo de execucao desses "pixels" eh usado para sinconizacao com o VGA e atela
 
 -- HORIZONTAL LINE
 -- 1280 pixels visiveis
@@ -47,19 +50,23 @@ SIGNAL HPOS: INTEGER RANGE 0 TO 1688:=0;
 SIGNAL VPOS: INTEGER RANGE 0 TO 1066:=0;
 
 ---------- Players Signals ----------
--- Signals to Create Players with respective size
-SIGNAL X1size, Y1size, X2size, Y2size : INTEGER;
+-- Signals para controle dos players com tamanho e posicao
+-- Tamanho
+SIGNAL X1size : INTEGER := 20;
+SIGNAL Y1size : INTEGER := 30;
+SIGNAL X2size : INTEGER := 80;
+SIGNAL Y2size : INTEGER := 10;
+-- Posicao
+SIGNAL SQ_X1: INTEGER RANGE 0 TO 1688:=435;
+SIGNAL SQ_Y1: INTEGER RANGE 0 TO 1688:=910;
+SIGNAL SQ_X2: INTEGER RANGE 0 TO 1688:=460;
+SIGNAL SQ_Y2: INTEGER RANGE 0 TO 1688:=910;
+SIGNAL DRAW1,DRAW2:STD_LOGIC:='0';
 
 ---------- Map Signals ----------
 SIGNAL DRAWMAP: STD_LOGIC:='0';
 
 BEGIN
-
--- Definindo o tamanho dos jogadores
-X1size <= 20;
-Y1size <= 30;
-X2size <= 80;
-Y2size <= 10;
 
 -- Esses processos calculam e retornam 1 na posicao de desenhar os quadrados
 SQ(HPOS,VPOS,SQ_X1,SQ_Y1,X1size,Y1size,RGB,DRAW1);
