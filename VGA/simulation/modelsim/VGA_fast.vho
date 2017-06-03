@@ -16,7 +16,7 @@
 -- PROGRAM "Quartus II 32-bit"
 -- VERSION "Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition"
 
--- DATE "05/31/2017 16:44:59"
+-- DATE "06/03/2017 16:29:51"
 
 -- 
 -- Device: Altera EP2C20F484C7 Package FBGA484
@@ -445,8 +445,8 @@ SIGNAL \C1|HPOS\ : std_logic_vector(10 DOWNTO 0);
 SIGNAL \C1|G\ : std_logic_vector(3 DOWNTO 0);
 SIGNAL \C1|B\ : std_logic_vector(3 DOWNTO 0);
 SIGNAL \CLOCK_24~combout\ : std_logic_vector(1 DOWNTO 0);
-SIGNAL \KEY~combout\ : std_logic_vector(3 DOWNTO 0);
 SIGNAL \SW~combout\ : std_logic_vector(1 DOWNTO 0);
+SIGNAL \KEY~combout\ : std_logic_vector(3 DOWNTO 0);
 
 BEGIN
 

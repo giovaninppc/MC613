@@ -1,5 +1,5 @@
 Flow report for VGA
-Wed May 31 16:44:59 2017
+Sat Jun  3 16:29:51 2017
 Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -40,7 +40,7 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Flow Summary                                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Flow Status                        ; Successful - Wed May 31 16:44:59 2017           ;
+; Flow Status                        ; Successful - Sat Jun  3 16:29:51 2017           ;
 ; Quartus II 32-bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; VGA                                             ;
 ; Top-level Entity Name              ; VGA                                             ;
@@ -64,7 +64,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 05/31/2017 16:44:44 ;
+; Start date & time ; 06/03/2017 16:29:34 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; VGA                 ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ applicable agreement for further details.
 +-------------------------------------+-------------------------------------------------------+---------------+--------------+----------------+
 ; Assignment Name                     ; Value                                                 ; Default Value ; Entity Name  ; Section Id     ;
 +-------------------------------------+-------------------------------------------------------+---------------+--------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 0.149625988409773                                     ; --            ; --           ; --             ;
+; COMPILER_SIGNATURE_ID               ; 0.149651817306629                                     ; --            ; --           ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Vhdl                                                  ; --            ; --           ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (VHDL)                                ; <None>        ; --           ; --             ;
 ; IP_TOOL_ENV                         ; Qsys                                                  ; --            ; pll          ; --             ;
@@ -105,26 +105,26 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:01     ; 1.0                     ; 369 MB              ; 00:00:02                           ;
-; Fitter                    ; 00:00:04     ; 1.0                     ; 432 MB              ; 00:00:04                           ;
-; Assembler                 ; 00:00:01     ; 1.0                     ; 336 MB              ; 00:00:01                           ;
-; TimeQuest Timing Analyzer ; 00:00:00     ; 1.0                     ; 298 MB              ; 00:00:01                           ;
-; EDA Netlist Writer        ; 00:00:01     ; 1.0                     ; 306 MB              ; 00:00:01                           ;
-; Total                     ; 00:00:07     ; --                      ; --                  ; 00:00:09                           ;
+; Analysis & Synthesis      ; 00:00:02     ; 1.0                     ; 380 MB              ; 00:00:02                           ;
+; Fitter                    ; 00:00:05     ; 1.0                     ; 435 MB              ; 00:00:04                           ;
+; Assembler                 ; 00:00:01     ; 1.0                     ; 349 MB              ; 00:00:01                           ;
+; TimeQuest Timing Analyzer ; 00:00:00     ; 1.0                     ; 313 MB              ; 00:00:01                           ;
+; EDA Netlist Writer        ; 00:00:00     ; 1.0                     ; 305 MB              ; 00:00:00                           ;
+; Total                     ; 00:00:08     ; --                      ; --                  ; 00:00:08                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
-+------------------------------------------------------------------------------------------------+
-; Flow OS Summary                                                                                ;
-+---------------------------+-----------------------+-------------+-------------+----------------+
-; Module Name               ; Machine Hostname      ; OS Name     ; OS Version  ; Processor type ;
-+---------------------------+-----------------------+-------------+-------------+----------------+
-; Analysis & Synthesis      ; eco.lab.ic.unicamp.br ; Fedora Core ; Fedora Core ; x86_64         ;
-; Fitter                    ; eco.lab.ic.unicamp.br ; Fedora Core ; Fedora Core ; x86_64         ;
-; Assembler                 ; eco.lab.ic.unicamp.br ; Fedora Core ; Fedora Core ; x86_64         ;
-; TimeQuest Timing Analyzer ; eco.lab.ic.unicamp.br ; Fedora Core ; Fedora Core ; x86_64         ;
-; EDA Netlist Writer        ; eco.lab.ic.unicamp.br ; Fedora Core ; Fedora Core ; x86_64         ;
-+---------------------------+-----------------------+-------------+-------------+----------------+
++----------------------------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                                          ;
++---------------------------+-------------------------------+--------------+--------------+----------------+
+; Module Name               ; Machine Hostname              ; OS Name      ; OS Version   ; Processor type ;
++---------------------------+-------------------------------+--------------+--------------+----------------+
+; Analysis & Synthesis      ; haiti.redes.lab.ic.unicamp.br ; CentOS Linux ; CentOS Linux ; x86_64         ;
+; Fitter                    ; haiti.redes.lab.ic.unicamp.br ; CentOS Linux ; CentOS Linux ; x86_64         ;
+; Assembler                 ; haiti.redes.lab.ic.unicamp.br ; CentOS Linux ; CentOS Linux ; x86_64         ;
+; TimeQuest Timing Analyzer ; haiti.redes.lab.ic.unicamp.br ; CentOS Linux ; CentOS Linux ; x86_64         ;
+; EDA Netlist Writer        ; haiti.redes.lab.ic.unicamp.br ; CentOS Linux ; CentOS Linux ; x86_64         ;
++---------------------------+-------------------------------+--------------+--------------+----------------+
 
 
 ------------

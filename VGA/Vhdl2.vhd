@@ -3,6 +3,12 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.my.all;
 
+-- Unidade de Controle
+-- Responsavel por calcular as posicoes de desenho e passar para a unidade de VGA
+-- Receber os dados de I/O e atualizar as posicoes dos jogadores
+-- Ler e passar para impressao o mapa do jogo
+-- Sincronizar a pssagem de dados para a tela em VGA
+
 ENTITY SYNC IS
 PORT(
 CLK: IN STD_LOGIC;
