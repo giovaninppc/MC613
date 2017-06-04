@@ -19,7 +19,8 @@ R: OUT STD_LOGIC_VECTOR(3 downto 0);
 G: OUT STD_LOGIC_VECTOR(3 downto 0);
 B: OUT STD_LOGIC_VECTOR(3 downto 0);
 KEYS: IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-S: IN STD_LOGIC_VECTOR(1 downto 0)
+S: IN STD_LOGIC_VECTOR(1 downto 0);
+C: IN STD_LOGIC_VECTOR(1 DOWNTO 0)
 );
 END SYNC;
 
@@ -189,16 +190,49 @@ IF(CLK'EVENT AND CLK='1')THEN
 		-- DESENHA O MAPA
 		IF (DRAW1='0' AND DRAW2='0')THEN
 			
-			IF DRAWMAP = '1' THEN	-- Desenhando o mapa
-				R<=(others=>'1');
-				G<=(others=>'1');
-				B<=(others=>'1');
-			
-			ELSE 							-- Pinta o resto de preto
-				R<=(others=>'0');
-				G<=(others=>'0');
-				B<=(others=>'0');
-			
+			IF C(1)='0' AND C(0)='0' THEN -- Padrao de cores 1
+				IF DRAWMAP = '1' THEN	-- Desenhando o mapa
+					R<=(others=>'1');
+					G<=(others=>'1');
+					B<=(others=>'1');
+				ELSE--background
+					R<=(others=>'0');
+					G<=(others=>'0');
+					B<=(others=>'0');
+				END IF;
+				
+			ELSIF C(0)='0' AND C(1)='1' THEN -- Padrao de cores 2
+				IF DRAWMAP = '1' THEN	-- Desenhando o mapa
+					R<= "0001";
+					G<= "0001";
+					B<= "0001";
+				ELSE--background
+					R<= "0011";
+					G<= "0010";
+					B<= "1010";
+				END IF;
+				
+			ELSIF C(0)='1' AND C(1)='0' THEN -- Padrao de cores 3
+				IF DRAWMAP = '1' THEN	-- Desenhando o mapa
+					R<=(others=>'0');
+					G<=(others=>'0');
+					B<=(others=>'0');
+				ELSE--background
+					R<= "0111";
+					G<= "0010";
+					B<= "0000";
+				END IF;
+				
+			ELSE							   -- Padrao de cores 2
+				IF DRAWMAP = '1' THEN	-- Desenhando o mapa
+					R<=(others=>'0');
+					G<=(others=>'0');
+					B<=(others=>'0');
+				ELSE--background
+					R<= "0111";
+					G<= "0111";
+					B<= "0111";
+				END IF;
 			END IF;
 		END IF;
 		
