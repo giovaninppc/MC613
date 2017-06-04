@@ -229,9 +229,9 @@ IF(CLK'EVENT AND CLK='1')THEN
 					G<=(others=>'0');
 					B<=(others=>'0');
 				ELSE--background
-					R<= "0111";
-					G<= "0111";
-					B<= "0111";
+					R<= "0010";
+					G<= "0011";
+					B<= "0010";
 				END IF;
 			END IF;
 		END IF;

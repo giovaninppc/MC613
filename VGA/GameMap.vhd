@@ -40,7 +40,7 @@ BEGIN
 	ELSIF ((Ycur > Ys + 925) AND (Ycur < Ys + 945) AND (Xcur > Xs + 700) AND (Xcur < Xs + 950)) THEN
 		DRAWMAP<='1';
 -- Map A4
-	ELSIF ((Ycur > Ys + 925) AND (Ycur < Ys + 945) AND (Xcur > Xs + 300) AND (Xcur < Xs + 600)) THEN
+	ELSIF ((Ycur > Ys + 925) AND (Ycur < Ys + 945) AND (Xcur > Xs + 300) AND (Xcur < Xs + 500)) THEN
 		DRAWMAP<='1';
 		
 -- Map Escada 1 d1
