@@ -279,11 +279,11 @@ IF(CLK'EVENT AND CLK='1')THEN
 					-- Jogador 1
 			      IF(S(0)='1')THEN
 						-- Mover para a direita
-					    IF(KEYS(0)='0' AND SQ1_dir = '0')THEN
+					    IF(KEYS(0)='0' AND SQ1_dir = '0' AND SQ_X1 < (1687 - X1Size))THEN
 						  SQ_X1<=SQ_X1+2;
 						 END IF;
 						 -- Mover para a esquerda
-                   IF(KEYS(1)='0' AND SQ1_esq = '0')THEN
+                   IF(KEYS(1)='0' AND SQ1_esq = '0' AND SQ_X1 > 409)THEN
 						  SQ_X1<=SQ_X1-2;
 						 END IF;
 						 -- Pulo
@@ -295,11 +295,11 @@ IF(CLK'EVENT AND CLK='1')THEN
 					-- Jogador 2
 			      IF(S(1)='1')THEN
 						-- Mover para a direita
-					    IF(KEYS(0)='0' AND SQ2_dir = '0')THEN
+					    IF(KEYS(0)='0' AND SQ2_dir = '0' AND SQ_X2 < (1687 - X2Size))THEN
 						  SQ_X2<=SQ_X2+2;
 						 END IF;
 						 -- Mover para a esquerda
-                   IF(KEYS(1)='0' AND SQ2_esq = '0')THEN
+                   IF(KEYS(1)='0' AND SQ2_esq = '0' AND SQ_X2 > 409)THEN
 						  SQ_X2<=SQ_X2-2;
 						 END IF;
 						 -- Pulo
