@@ -31,6 +31,11 @@ entity ps2_kbd_test is
 		------------------------	PS2		--------------------------------
 		PS2_DAT 	:		inout	STD_LOGIC;	--	PS2 Data
 		PS2_CLK		:		inout	STD_LOGIC		--	PS2 Clock
+		
+		------------------------ Arrow output ------------------------------
+		--right_arrow: out STD_LOGIC;
+		--left_arrow: out STD_LOGIC;
+		--up_arrow: out STD_LOGIC;
 	);
 end;
 
@@ -38,6 +43,7 @@ architecture struct of ps2_kbd_test is
 	signal CLOCKHZ, resetn 	: std_logic;
 	signal key0 						: std_logic_vector(15 downto 0);
 	signal lights, key_on		: std_logic_vector( 2 downto 0);
+	signal right_arrow, left_arrow, up_arrow: STD_LOGIC;
 begin 
 	resetn <= KEY(0);
 
@@ -53,51 +59,15 @@ begin
 	
 	LEDG(7 downto 5) <= key_on;
 	
+	up_arrow <= '1' WHEN key0 = "1110000001110101" ELSE '0';
+	left_arrow <='1' WHEN key0 = "1110000001101011" ELSE '0';
+	right_arrow <= '1' WHEN key0 = "1110000001110100" ELSE '0';
 	-- lights <= SW(2 downto 0);
 	
 	-- CLOCKTAP <= CLOCKHZ;
 	
-	-- Playing with lights! xD
-	process(CLOCKHZ, resetn, key_on)
-		variable dir : boolean := false;
-	begin
-		if(rising_edge(CLOCKHZ)) then
-			if lights(2) = '1' then
-				dir := true;
-			elsif lights(0) = '1' then
-				dir := false;
-			end if;
-			if key_on = "000" then
-				if not dir then
-					lights <= lights(1 downto 0) & lights(2);
-				else
-					lights <= lights(0) & lights(2 downto 1);
-				end if;
-			end if;
-		end if;
-		if resetn = '0' then
-			dir := false;	
-			lights <= "001";
-		end if;		
-	end process;
-	
-	-- Hz clock	
-	process(CLOCK_24(0))
-		constant F_HZ : integer := 5;
+	LEDR(9) <= left_arrow;
+	LEDR(5) <= up_arrow;
+	LEDR(1) <= right_arrow;
 		
-		constant DIVIDER : integer := 24000000/F_HZ;
-		variable count : integer range 0 to DIVIDER := 0;		
-	begin
-		if(rising_edge(CLOCK_24(0))) then
-			if count < DIVIDER / 2 then
-				CLOCKHZ <= '1';
-			else 
-				CLOCKHZ <= '0';
-			end if;
-			if count = DIVIDER then
-				count := 0;
-			end if;
-			count := count + 1;			
-		end if;
-	end process;	
 end struct;
