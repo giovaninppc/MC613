@@ -85,6 +85,7 @@ SIGNAL SQ1_down, SQ2_down : STD_LOGIC := '0';
 -- Insicador de contato com outro jogador
 SIGNAL contatoA1, contatoB1, contatoC1, contatoD1, contatoBB1, contatoBC1 : STD_LOGIC := '1';
 SIGNAL contatoA2, contatoB2, contatoC2, contatoD2, contatoBB2, contatoBC2 : STD_LOGIC := '1';
+SIGNAL contatoBA2, contatoBD2, contatoBI2, contatoBG2 : STD_LOGIC := '1';
 -- Indicadores de posicao dos 4 cantos dos jogadores
 --
 -- (QnX1,QnY1)__________________ (QnX2,QnY1)
@@ -103,6 +104,8 @@ SIGNAL contatoA2, contatoB2, contatoC2, contatoD2, contatoBB2, contatoBC2 : STD_
 -- As letras referem-se aos sinais de colisao entre os jogadores
 SIGNAL Q1X1, Q1X2, Q1Y1, Q1Y2, Q1Y2m : INTEGER;
 SIGNAL Q2X1, Q2X2, Q2Y1, Q2Y2, Q2Y2m : INTEGER;
+SIGNAL Q2Xa, Q2Xd, Q2Xi, Q2Xg : INTEGER;
+SIGNAL touchDown2, touchDown1 : STD_LOGIC;
 ---------- Map Signals ----------
 SIGNAL DRAWMAP: STD_LOGIC:='0';
 
@@ -130,7 +133,8 @@ dMap(Q1X1,Q1Y2,arQ1X1); 											-- Verifica contato base em X1
 dMap(Q1X2,Q1Y2,arQ1X2); 											-- Verifica contato base em X2
 SQ(Q1X1,Q1Y2,SQ_X2,SQ_Y2,X2size,Y2size,RCB,contatoBB1);	-- Verifica contato base em X1 com player2
 SQ(Q1X2,Q1Y2,SQ_X2,SQ_Y2,X2size,Y2size,RCB,contatoBC1);	-- Verifica contato base em X2 com player2
-SQ1_noAR <= NOT(arQ1X1 OR arQ1X2 OR contatoBC1 OR contatoBB1);
+touchDown1 <= contatoBC1 OR contatoBB1;
+SQ1_noAR <= NOT(arQ1X1 OR arQ1X2 OR touchDown1);
 -- Verifica contato direita
 SQ(Q1X2,Q1Y2m,SQ_X2,SQ_Y2,X2size,Y2size,RCB,contatoD1);
 SQ(Q1X2,Q1Y1,SQ_X2,SQ_Y2,X2size,Y2size,RCB,contatoC1);
@@ -154,12 +158,21 @@ Q2X2 <= SQ_X2 + X2size + 1;
 Q2Y1 <= SQ_Y2 + 1;
 Q2Y2 <= SQ_Y2 + Y2size + 1;
 Q2Y2m<= SQ_Y2 + Y2size - 1;
+Q2Xa <= SQ_X2 + 18;
+Q2Xd <= SQ_X2 + X2size - 18;
+Q2Xi <= SQ_X2 + 36;
+Q2Xg <= SQ_X2 + X2size - 36;
 -- Verifica se esta no ar
 dMap(Q2X1,Q2Y2,arQ2X1); -- Verifica contato base em X1
 dMap(Q2X2,Q2Y2,arQ2X2); -- Verifica contato base em X2
 SQ(Q2X1,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBB2);	-- Verifica contato base em X1 com player1
 SQ(Q2X2,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBC2);	-- Verifica contato base em X2 com player1
-SQ2_noAR <= NOT(arQ2X1 OR arQ2X2 OR contatoBB2 OR contatoBC2);
+SQ(Q2Xa,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBA2);
+SQ(Q2Xd,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBD2);
+SQ(Q2Xi,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBI2);
+SQ(Q2Xi,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBG2);
+touchDown2 <= contatoBB2 OR contatoBC2 OR contatoBA2 OR contatoBD2 OR contatoBI2 OR contatoBG2;
+SQ2_noAR <= NOT(arQ2X1 OR arQ2X2 OR touchDown2);
 -- Verifica conato direita
 SQ(Q2X2,Q2Y2m,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoD2);
 SQ(Q2X2,Q2Y1,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoC2);
@@ -306,8 +319,8 @@ IF(CLK'EVENT AND CLK='1')THEN
                    IF(KEYS(1)='0' AND SQ1_esq = '0' AND SQ_X1 > 409)THEN
 						  SQ_X1<=SQ_X1-2;
 						 END IF;
-						 -- Pulo
-						  IF(KEYS(2)='0' AND SQ1_noAR = '0')THEN
+						 -- Pulo / Ele so pula se nao estiver no ar, e nao houver outro jogador em cima dele
+						  IF(KEYS(2)='0' AND SQ1_noAR = '0' AND touchDown2 = '0')THEN
 						  SQ1_Jump <= 30;
 						 END IF;
 						 
@@ -323,7 +336,7 @@ IF(CLK'EVENT AND CLK='1')THEN
 						  SQ_X2<=SQ_X2-2;
 						 END IF;
 						 -- Pulo
-						  IF(KEYS(2)='0' AND SQ2_noAR = '0' AND (contatoBC1 OR contatoBB1)= '0')THEN
+						  IF(KEYS(2)='0' AND SQ2_noAR = '0' AND touchDown1 = '0')THEN
 						  SQ2_Jump <= 30;
 						 END IF;
 						  
