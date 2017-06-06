@@ -170,7 +170,7 @@ SQ(Q2X2,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBC2);	-- Verifica contato base
 SQ(Q2Xa,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBA2);
 SQ(Q2Xd,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBD2);
 SQ(Q2Xi,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBI2);
-SQ(Q2Xi,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBG2);
+SQ(Q2Xg,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBG2);
 touchDown2 <= contatoBB2 OR contatoBC2 OR contatoBA2 OR contatoBD2 OR contatoBI2 OR contatoBG2;
 SQ2_noAR <= NOT(arQ2X1 OR arQ2X2 OR touchDown2);
 -- Verifica conato direita
@@ -335,7 +335,7 @@ IF(CLK'EVENT AND CLK='1')THEN
                    IF(KEYS(1)='0' AND SQ2_esq = '0' AND SQ_X2 > 409)THEN
 						  SQ_X2<=SQ_X2-2;
 						 END IF;
-						 -- Pulo
+						 -- Pulo/ Ele so pula se nao estiver no ar, e nao houver outro jogador em cima dele
 						  IF(KEYS(2)='0' AND SQ2_noAR = '0' AND touchDown1 = '0')THEN
 						  SQ2_Jump <= 30;
 						 END IF;
