@@ -30,6 +30,7 @@ ARCHITECTURE MAIN OF SYNC IS
 ---------- SCREEN Signals ----------
 -----1280x1024 @ 60 Hz pixel clock 108 MHz
 SIGNAL RGB: STD_LOGIC_VECTOR(3 downto 0);
+SIGNAL RCB: STD_LOGIC_VECTOR(3 downto 0);
 
 -- A tela funciona como um plano cartesiano 1280 x 1024
 -- Onde o ponto (0,0) ´e o canto superior esquerdo
@@ -79,9 +80,14 @@ SIGNAL SQ2_esq  : STD_LOGIC := '1';
 SIGNAL esqQ1X1, esqQ1X2, esqQ2X1, esqQ2X2 : STD_LOGIC := '0';
 -- Indicador de contato em cima
 SIGNAL SQ1_up, SQ2_up : STD_LOGIC := '0';
+-- Indicador de contato embaixo
+SIGNAL SQ1_down, SQ2_down : STD_LOGIC := '0';
+-- Insicador de contato com outro jogador
+SIGNAL contatoA1, contatoB1, contatoC1, contatoD1, contatoBB1, contatoBC1 : STD_LOGIC := '1';
+SIGNAL contatoA2, contatoB2, contatoC2, contatoD2, contatoBB2, contatoBC2 : STD_LOGIC := '1';
 -- Indicadores de posicao dos 4 cantos dos jogadores
 --
--- (QnX1,QnY1) _________________ (QnX2,QnY1)
+-- (QnX1,QnY1)__________________ (QnX2,QnY1)
 --            |                |
 --            |                |
 --            |                |
@@ -94,6 +100,7 @@ SIGNAL SQ1_up, SQ2_up : STD_LOGIC := '0';
 -- (QnX1,QnY2)                   (QnX2,QnY2)
 -- O Valor QnY2m marca um ponto acima da base nas posicoes (X,QnY2)
 -- Usado para marcar colisoes laterais, pois o QnY2 teria conflito com o chao
+-- As letras referem-se aos sinais de colisao entre os jogadores
 SIGNAL Q1X1, Q1X2, Q1Y1, Q1Y2, Q1Y2m : INTEGER;
 SIGNAL Q2X1, Q2X2, Q2Y1, Q2Y2, Q2Y2m : INTEGER;
 ---------- Map Signals ----------
@@ -119,19 +126,26 @@ Q1Y1 <= SQ_Y1 + 1;
 Q1Y2 <= SQ_Y1 + Y1size + 1;
 Q1Y2m<= SQ_Y1 + Y1size - 1;
 -- Verifica se esta no ar
-dMap(Q1X1,Q1Y2,arQ1X1); -- Verifica contato base em X1
-dMap(Q1X2,Q1Y2,arQ1X2); -- Verifica contato base em X2
-SQ1_noAR <= NOT(arQ1X1 OR arQ1X2);
+dMap(Q1X1,Q1Y2,arQ1X1); 											-- Verifica contato base em X1
+dMap(Q1X2,Q1Y2,arQ1X2); 											-- Verifica contato base em X2
+SQ(Q1X1,Q1Y2,SQ_X2,SQ_Y2,X2size,Y2size,RCB,contatoBB1);	-- Verifica contato base em X1 com player2
+SQ(Q1X2,Q1Y2,SQ_X2,SQ_Y2,X2size,Y2size,RCB,contatoBC1);	-- Verifica contato base em X2 com player2
+SQ1_noAR <= NOT(arQ1X1 OR arQ1X2 OR contatoBC1 OR contatoBB1);
 -- Verifica contato direita
+SQ(Q1X2,Q1Y2m,SQ_X2,SQ_Y2,X2size,Y2size,RCB,contatoD1);
+SQ(Q1X2,Q1Y1,SQ_X2,SQ_Y2,X2size,Y2size,RCB,contatoC1);
 dMap(Q1X2,Q1Y1,dirQ1X1);
 dmap(Q1X2,Q1Y2m,dirQ1X2);
-SQ1_dir <= (dirQ1X1 OR dirQ1X2);
+SQ1_dir <= (dirQ1X1 OR dirQ1X2 OR contatoD1 OR contatoC1);
 --Verifica contato esquerda
+SQ(Q1X1,Q1Y1,SQ_X2,SQ_Y2,X2size,Y2size,RCB,contatoA1);
+SQ(Q1X1,Q1Y2m,SQ_X2,SQ_Y2,X2size,Y2size,RCB,contatoB1);
 dMap(Q1X1,Q1Y1,esqQ1X1);
 dmap(Q1X1,Q1Y2m,esqQ1X2);
-SQ1_esq <= (esqQ1X1 OR esqQ1X2);
+SQ1_esq <= (esqQ1X1 OR esqQ1X2 OR contatoA1 OR contatoB1);
 -- Contato superior
 SQ1_up <= dirQ1X1 OR esqQ1X1;
+-- Contato com outro Player
 
 -- Jogador 2
 -- Inicia indicadores de posicao
@@ -143,15 +157,21 @@ Q2Y2m<= SQ_Y2 + Y2size - 1;
 -- Verifica se esta no ar
 dMap(Q2X1,Q2Y2,arQ2X1); -- Verifica contato base em X1
 dMap(Q2X2,Q2Y2,arQ2X2); -- Verifica contato base em X2
-SQ2_noAR <= NOT(arQ2X1 OR arQ2X2);
+SQ(Q2X1,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBB2);	-- Verifica contato base em X1 com player1
+SQ(Q2X2,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBC2);	-- Verifica contato base em X2 com player1
+SQ2_noAR <= NOT(arQ2X1 OR arQ2X2 OR contatoBB2 OR contatoBC2);
 -- Verifica conato direita
+SQ(Q2X2,Q2Y2m,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoD2);
+SQ(Q2X2,Q2Y1,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoC2);
 dMap(Q2X2,Q2Y1,dirQ2X1);
 dmap(Q2X2,Q2Y2m,dirQ2X2);
-SQ2_dir <= (dirQ2X1 OR dirQ2X2);
+SQ2_dir <= (dirQ2X1 OR dirQ2X2 OR contatoD2 OR contatoC2);
 -- Verifica contato esquerda
+SQ(Q2X1,Q2Y1,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoA2);
+SQ(Q2X1,Q2Y2m,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoB2);
 dMap(Q2X1,Q2Y1,esqQ2X1);
 dmap(Q2X1,Q2Y2m,esqQ2X2);
-SQ2_esq <= (esqQ2X1 OR esqQ2X2);
+SQ2_esq <= (esqQ2X1 OR esqQ2X2 OR contatoA2 OR contatoB2);
 -- Contato superior
 SQ2_up <= dirQ2X1 OR esqQ2X1;
  
@@ -303,7 +323,7 @@ IF(CLK'EVENT AND CLK='1')THEN
 						  SQ_X2<=SQ_X2-2;
 						 END IF;
 						 -- Pulo
-						  IF(KEYS(2)='0' AND SQ2_noAR = '0')THEN
+						  IF(KEYS(2)='0' AND SQ2_noAR = '0' AND (contatoBC1 OR contatoBB1)= '0')THEN
 						  SQ2_Jump <= 30;
 						 END IF;
 						  

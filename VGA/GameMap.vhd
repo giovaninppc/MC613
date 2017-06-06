@@ -65,6 +65,10 @@ BEGIN
 -- Map B1
 	ELSIF ((Ycur > Ys + 825) AND (Ycur < Ys + 847) AND (Xcur > Xs + 0) AND (Xcur < Xs + 181))   THEN
 		DRAWMAP<='1';
+
+-- Map C1
+	ELSIF ((Ycur > Ys + 760) AND (Ycur < Ys + 785) AND (Xcur > Xs + 90) AND (Xcur < Xs + 220))   THEN
+		DRAWMAP<='1';
 		
  -- END
 	ELSE
