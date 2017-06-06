@@ -4,17 +4,15 @@ use ieee.numeric_std.all;
 
 PACKAGE MY IS
 PROCEDURE SQ(SIGNAL Xcur,Ycur,Xpos,Ypos,Xsize,Ysize:IN INTEGER;
-				 SIGNAL RGB:OUT STD_LOGIC_VECTOR(3 downto 0);
 				 SIGNAL DRAW: OUT STD_LOGIC);
 END MY;
 
 -- Esses procedures retornam 1 se deve desenhar um personagem na tela!!!
 
 PACKAGE BODY MY IS
-PROCEDURE SQ(SIGNAL Xcur,Ycur,Xpos,Ypos,Xsize,Ysize:IN INTEGER;SIGNAL RGB:OUT STD_LOGIC_VECTOR(3 downto 0);SIGNAL DRAW: OUT STD_LOGIC) IS
+PROCEDURE SQ(SIGNAL Xcur,Ycur,Xpos,Ypos,Xsize,Ysize:IN INTEGER;SIGNAL DRAW: OUT STD_LOGIC) IS
 BEGIN
  IF(Xcur>Xpos AND Xcur<(Xpos+Xsize) AND Ycur>Ypos AND Ycur<(Ypos+Ysize))THEN
-	 RGB<="1111";
 	 DRAW<='1';
  ELSE
 	 DRAW<='0';

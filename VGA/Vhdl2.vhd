@@ -29,8 +29,6 @@ ARCHITECTURE MAIN OF SYNC IS
 
 ---------- SCREEN Signals ----------
 -----1280x1024 @ 60 Hz pixel clock 108 MHz
-SIGNAL RGB: STD_LOGIC_VECTOR(3 downto 0);
-SIGNAL RCB: STD_LOGIC_VECTOR(3 downto 0);
 
 -- A tela funciona como um plano cartesiano 1280 x 1024
 -- Onde o ponto (0,0) ´e o canto superior esquerdo
@@ -112,8 +110,8 @@ SIGNAL DRAWMAP: STD_LOGIC:='0';
 BEGIN
 
 -- Esses processos calculam e retornam 1 na posicao de desenhar os quadrados
-SQ(HPOS,VPOS,SQ_X1,SQ_Y1,X1size,Y1size,RGB,DRAW1);
-SQ(HPOS,VPOS,SQ_X2,SQ_Y2,X2size,Y2size,RGB,DRAW2);
+SQ(HPOS,VPOS,SQ_X1,SQ_Y1,X1size,Y1size,DRAW1);
+SQ(HPOS,VPOS,SQ_X2,SQ_Y2,X2size,Y2size,DRAW2);
 
 -- Verifica se eh para desenhar uma parte do mapa
 -- Esse processos retorna 1 se existe um mapa na posicao passada como parametro
@@ -131,19 +129,19 @@ Q1Y2m<= SQ_Y1 + Y1size - 1;
 -- Verifica se esta no ar
 dMap(Q1X1,Q1Y2,arQ1X1); 											-- Verifica contato base em X1
 dMap(Q1X2,Q1Y2,arQ1X2); 											-- Verifica contato base em X2
-SQ(Q1X1,Q1Y2,SQ_X2,SQ_Y2,X2size,Y2size,RCB,contatoBB1);	-- Verifica contato base em X1 com player2
-SQ(Q1X2,Q1Y2,SQ_X2,SQ_Y2,X2size,Y2size,RCB,contatoBC1);	-- Verifica contato base em X2 com player2
+SQ(Q1X1,Q1Y2,SQ_X2,SQ_Y2,X2size,Y2size,contatoBB1);	-- Verifica contato base em X1 com player2
+SQ(Q1X2,Q1Y2,SQ_X2,SQ_Y2,X2size,Y2size,contatoBC1);	-- Verifica contato base em X2 com player2
 touchDown1 <= contatoBC1 OR contatoBB1;
 SQ1_noAR <= NOT(arQ1X1 OR arQ1X2 OR touchDown1);
 -- Verifica contato direita
-SQ(Q1X2,Q1Y2m,SQ_X2,SQ_Y2,X2size,Y2size,RCB,contatoD1);
-SQ(Q1X2,Q1Y1,SQ_X2,SQ_Y2,X2size,Y2size,RCB,contatoC1);
+SQ(Q1X2,Q1Y2m,SQ_X2,SQ_Y2,X2size,Y2size,contatoD1);
+SQ(Q1X2,Q1Y1,SQ_X2,SQ_Y2,X2size,Y2size,contatoC1);
 dMap(Q1X2,Q1Y1,dirQ1X1);
 dmap(Q1X2,Q1Y2m,dirQ1X2);
 SQ1_dir <= (dirQ1X1 OR dirQ1X2 OR contatoD1 OR contatoC1);
 --Verifica contato esquerda
-SQ(Q1X1,Q1Y1,SQ_X2,SQ_Y2,X2size,Y2size,RCB,contatoA1);
-SQ(Q1X1,Q1Y2m,SQ_X2,SQ_Y2,X2size,Y2size,RCB,contatoB1);
+SQ(Q1X1,Q1Y1,SQ_X2,SQ_Y2,X2size,Y2size,contatoA1);
+SQ(Q1X1,Q1Y2m,SQ_X2,SQ_Y2,X2size,Y2size,contatoB1);
 dMap(Q1X1,Q1Y1,esqQ1X1);
 dmap(Q1X1,Q1Y2m,esqQ1X2);
 SQ1_esq <= (esqQ1X1 OR esqQ1X2 OR contatoA1 OR contatoB1);
@@ -165,23 +163,23 @@ Q2Xg <= SQ_X2 + X2size - 36;
 -- Verifica se esta no ar
 dMap(Q2X1,Q2Y2,arQ2X1); -- Verifica contato base em X1
 dMap(Q2X2,Q2Y2,arQ2X2); -- Verifica contato base em X2
-SQ(Q2X1,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBB2);	-- Verifica contato base em X1 com player1
-SQ(Q2X2,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBC2);	-- Verifica contato base em X2 com player1
-SQ(Q2Xa,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBA2);
-SQ(Q2Xd,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBD2);
-SQ(Q2Xi,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBI2);
-SQ(Q2Xg,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoBG2);
+SQ(Q2X1,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,contatoBB2);	-- Verifica contato base em X1 com player1
+SQ(Q2X2,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,contatoBC2);	-- Verifica contato base em X2 com player1
+SQ(Q2Xa,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,contatoBA2);
+SQ(Q2Xd,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,contatoBD2);
+SQ(Q2Xi,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,contatoBI2);
+SQ(Q2Xg,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,contatoBG2);
 touchDown2 <= contatoBB2 OR contatoBC2 OR contatoBA2 OR contatoBD2 OR contatoBI2 OR contatoBG2;
 SQ2_noAR <= NOT(arQ2X1 OR arQ2X2 OR touchDown2);
 -- Verifica conato direita
-SQ(Q2X2,Q2Y2m,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoD2);
-SQ(Q2X2,Q2Y1,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoC2);
+SQ(Q2X2,Q2Y2m,SQ_X1,SQ_Y1,X1size,Y1size,contatoD2);
+SQ(Q2X2,Q2Y1,SQ_X1,SQ_Y1,X1size,Y1size,contatoC2);
 dMap(Q2X2,Q2Y1,dirQ2X1);
 dmap(Q2X2,Q2Y2m,dirQ2X2);
 SQ2_dir <= (dirQ2X1 OR dirQ2X2 OR contatoD2 OR contatoC2);
 -- Verifica contato esquerda
-SQ(Q2X1,Q2Y1,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoA2);
-SQ(Q2X1,Q2Y2m,SQ_X1,SQ_Y1,X1size,Y1size,RCB,contatoB2);
+SQ(Q2X1,Q2Y1,SQ_X1,SQ_Y1,X1size,Y1size,contatoA2);
+SQ(Q2X1,Q2Y2m,SQ_X1,SQ_Y1,X1size,Y1size,contatoB2);
 dMap(Q2X1,Q2Y1,esqQ2X1);
 dmap(Q2X1,Q2Y2m,esqQ2X2);
 SQ2_esq <= (esqQ2X1 OR esqQ2X2 OR contatoA2 OR contatoB2);
