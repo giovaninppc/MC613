@@ -128,6 +128,7 @@ SIGNAL Q1X1, Q1X2, Q1Y1, Q1Y2, Q1Y2m : INTEGER;
 SIGNAL Q2X1, Q2X2, Q2Y1, Q2Y2, Q2Y2m : INTEGER;
 SIGNAL Q2Xa, Q2Xd, Q2Xi, Q2Xg : INTEGER;
 SIGNAL touchDown2, touchDown1 : STD_LOGIC;
+SIGNAL OVER: STD_LOGIC:='0';
 ---------- Map Signals ----------
 SIGNAL DRAWMAP: STD_LOGIC:='0';
 
@@ -214,6 +215,12 @@ SQ2_up <= dirQ2X1 OR esqQ2X1;
  PROCESS(CLK)
  BEGIN
 IF(CLK'EVENT AND CLK='1')THEN
+
+		-- VERIFICA FINAL DO JOGO
+		IF	SQ_X1 < 508 AND SQ_X2 < 508 AND SQ_Y1 < 110 AND SQ_Y2 < 110 THEN
+			-- GAME OVER
+			OVER <= '1';
+		END IF;
 		
 		-- DESENHA OS PLAYERS
 		-- SQ 1 retornou verdadeiro
@@ -244,8 +251,14 @@ IF(CLK'EVENT AND CLK='1')THEN
 		
 		-- DESENHA O MAPA
 		IF (DRAW1='0' AND DRAW2='0')THEN
+		
+			-- Final do Jogo!!!
+			IF HPOS < 508 AND VPOS < 110 AND DRAWMAP = '0' THEN
+				R<="0011";
+				G<="0100";
+				B<="1111";
 			
-			IF C(1)='0' AND C(0)='0' THEN -- Padrao de cores 1
+			ELSIF C(1)='0' AND C(0)='0' THEN -- Padrao de cores 1
 				IF DRAWMAP = '1' THEN	-- Desenhando o mapa
 					R<=(others=>'1');
 					G<=(others=>'1');
