@@ -166,7 +166,7 @@ BEGIN
 	ELSIF ((Ycur > Ys + 450) AND (Ycur < Ys + 500) AND (Xcur > Xs) AND (Xcur < Xs + 70))   THEN
 		DRAWMAP<='1';
 -- G2
-	ELSIF ((Ycur > Ys + 430) AND (Ycur < Ys + 450) AND (Xcur > Xs + 150) AND (Xcur < Xs + 250))   THEN
+	ELSIF ((Ycur > Ys + 430) AND (Ycur < Ys + 450) AND (Xcur > Xs + 160) AND (Xcur < Xs + 250))   THEN
 		DRAWMAP<='1';
 -- G3
 	ELSIF ((Ycur > Ys + 430) AND (Ycur < Ys + 450) AND (Xcur > Xs + 300) AND (Xcur < Xs + 450))   THEN
@@ -180,7 +180,7 @@ BEGIN
 -- G6
 	ELSIF ((Ycur > Ys + 430) AND (Ycur < Ys + 450) AND (Xcur > Xs + 1100) AND (Xcur < Xs + 1281))   THEN
 		DRAWMAP<='1';
--- G6
+-- G7
 	ELSIF ((Ycur > Ys + 410) AND (Ycur < Ys + 432) AND (Xcur > Xs + 1210) AND (Xcur < Xs + 1281))   THEN
 		DRAWMAP<='1';
 		
@@ -227,7 +227,7 @@ BEGIN
 	ELSIF ((Ycur > Ys + 205) AND (Ycur < Ys + 315) AND (Xcur > Xs + 700) AND (Xcur < Xs + 750))   THEN
 		DRAWMAP<='1';
 -- J5
-	ELSIF ((Ycur > Ys + 215) AND (Ycur < Ys + 288) AND (Xcur > Xs + 800) AND (Xcur < Xs + 820))   THEN
+	ELSIF ((Ycur > Ys + 300) AND (Ycur < Ys + 322) AND (Xcur > Xs + 770) AND (Xcur < Xs + 820))   THEN
 		DRAWMAP<='1';
 -- J6
 	ELSIF ((Ycur > Ys + 207) AND (Ycur < Ys + 288) AND (Xcur > Xs + 840) AND (Xcur < Xs + 900))   THEN

@@ -21,7 +21,8 @@ PACKAGE SYNC_Package IS
 	B: OUT STD_LOGIC_VECTOR(3 downto 0);
 	KEYS: IN STD_LOGIC_VECTOR(3 DOWNTO 0);
 	S: IN STD_LOGIC_VECTOR(1 downto 0);
-	C: IN STD_LOGIC_VECTOR(1 DOWNTO 0)
+	C: IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+	OVER: OUT STD_LOGIC
 	);
 	END COMPONENT;
 END SynC_Package;
@@ -44,7 +45,8 @@ G: OUT STD_LOGIC_VECTOR(3 downto 0);
 B: OUT STD_LOGIC_VECTOR(3 downto 0);
 KEYS: IN STD_LOGIC_VECTOR(3 DOWNTO 0);
 S: IN STD_LOGIC_VECTOR(1 downto 0);
-C: IN STD_LOGIC_VECTOR(1 DOWNTO 0)
+C: IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+OVER: OUT STD_LOGIC
 );
 END SYNC;
 
@@ -89,7 +91,7 @@ SIGNAL DRAW1,DRAW2:STD_LOGIC:='0';
 -- Indicador de estar no Ar
 SIGNAL SQ1_noAR : STD_LOGIC := '1';
 SIGNAL SQ2_noAR : STD_LOGIC := '1';
-SIGNAL arQ1X1, arQ1X2, arQ2X1, arQ2X2 : STD_LOGIC := '0';
+SIGNAL arQ1X1, arQ1X2, arQ2X1, arQ2X2, arQ2X3, arQ2X4, arQ2X5, arQ2X6 : STD_LOGIC := '0';
 -- Indicador de Salto
 SIGNAL SQ1_Jump, SQ2_Jump : INTEGER := 0;
 -- Indicador de contato a direita
@@ -128,7 +130,6 @@ SIGNAL Q1X1, Q1X2, Q1Y1, Q1Y2, Q1Y2m : INTEGER;
 SIGNAL Q2X1, Q2X2, Q2Y1, Q2Y2, Q2Y2m : INTEGER;
 SIGNAL Q2Xa, Q2Xd, Q2Xi, Q2Xg : INTEGER;
 SIGNAL touchDown2, touchDown1 : STD_LOGIC;
-SIGNAL OVER: STD_LOGIC:='0';
 ---------- Map Signals ----------
 SIGNAL DRAWMAP: STD_LOGIC:='0';
 
@@ -188,6 +189,10 @@ Q2Xg <= SQ_X2 + X2size - 36;
 -- Verifica se esta no ar
 dMap(Q2X1,Q2Y2,arQ2X1); -- Verifica contato base em X1
 dMap(Q2X2,Q2Y2,arQ2X2); -- Verifica contato base em X2
+dMap(Q2Xa,Q2Y2,arQ2X3); -- Verifica contato base em X3
+dMap(Q2Xd,Q2Y2,arQ2X4); -- Verifica contato base em X4
+dMap(Q2Xi,Q2Y2,arQ2X5); -- Verifica contato base em X5
+dMap(Q2Xg,Q2Y2,arQ2X6); -- Verifica contato base em X6
 SQ(Q2X1,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,contatoBB2);	-- Verifica contato base em X1 com player1
 SQ(Q2X2,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,contatoBC2);	-- Verifica contato base em X2 com player1
 SQ(Q2Xa,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,contatoBA2);
@@ -195,7 +200,7 @@ SQ(Q2Xd,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,contatoBD2);
 SQ(Q2Xi,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,contatoBI2);
 SQ(Q2Xg,Q2Y2,SQ_X1,SQ_Y1,X1size,Y1size,contatoBG2);
 touchDown2 <= contatoBB2 OR contatoBC2 OR contatoBA2 OR contatoBD2 OR contatoBI2 OR contatoBG2;
-SQ2_noAR <= NOT(arQ2X1 OR arQ2X2 OR touchDown2);
+SQ2_noAR <= NOT(arQ2X1 OR arQ2X2 OR arQ2X3 OR arQ2X4 OR arQ2X5 OR arQ2X6 OR touchDown2);
 -- Verifica conato direita
 SQ(Q2X2,Q2Y2m,SQ_X1,SQ_Y1,X1size,Y1size,contatoD2);
 SQ(Q2X2,Q2Y1,SQ_X1,SQ_Y1,X1size,Y1size,contatoC2);
@@ -217,9 +222,11 @@ SQ2_up <= dirQ2X1 OR esqQ2X1;
 IF(CLK'EVENT AND CLK='1')THEN
 
 		-- VERIFICA FINAL DO JOGO
-		IF	SQ_X1 < 508 AND SQ_X2 < 508 AND SQ_Y1 < 110 AND SQ_Y2 < 110 THEN
+		IF	SQ_X1 < 460 AND SQ_X2 < 435 AND SQ_Y1 < 100 AND SQ_Y2 < 100 THEN
 			-- GAME OVER
 			OVER <= '1';
+		ELSE 
+			OVER <= '0';
 		END IF;
 		
 		-- DESENHA OS PLAYERS
@@ -325,7 +332,7 @@ IF(CLK'EVENT AND CLK='1')THEN
 					
 					-- Executa o Salto
 					IF SQ1_Jump > 0 THEN
-						IF SQ1_up = '0' THEN
+						IF SQ1_up = '0' AND SQ_Y1 > 42 THEN
 							SQ_Y1<=SQ_Y1-2;
 							SQ1_Jump <= SQ1_Jump - 1;
 						ELSE
@@ -335,7 +342,7 @@ IF(CLK'EVENT AND CLK='1')THEN
 					
 					-- Executa o Salto
 					IF SQ2_Jump > 0 THEN
-						IF SQ2_up = '0' THEN
+						IF SQ2_up = '0'  AND SQ_Y2 > 42 THEN
 							SQ_Y2<=SQ_Y2-2;
 							SQ2_Jump <= SQ2_Jump - 1;
 						ELSE

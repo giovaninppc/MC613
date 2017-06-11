@@ -1,5 +1,5 @@
 Analysis & Synthesis report for VGA
-Sun Jun 11 16:24:24 2017
+Sun Jun 11 17:16:01 2017
 Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -50,16 +50,16 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun Jun 11 16:24:24 2017           ;
+; Analysis & Synthesis Status        ; Successful - Sun Jun 11 17:16:01 2017           ;
 ; Quartus II 32-bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; VGA                                             ;
 ; Top-level Entity Name              ; VGA                                             ;
 ; Family                             ; Cyclone II                                      ;
-; Total logic elements               ; 3,612                                           ;
-;     Total combinational functions  ; 3,612                                           ;
-;     Dedicated logic registers      ; 140                                             ;
-; Total registers                    ; 140                                             ;
-; Total pins                         ; 30                                              ;
+; Total logic elements               ; 4,463                                           ;
+;     Total combinational functions  ; 4,463                                           ;
+;     Dedicated logic registers      ; 141                                             ;
+; Total registers                    ; 141                                             ;
+; Total pins                         ; 38                                              ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 0                                               ;
 ; Embedded Multiplier 9-bit elements ; 0                                               ;
@@ -187,31 +187,31 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +---------------------------------------------+----------------------------------------------+
 ; Resource                                    ; Usage                                        ;
 +---------------------------------------------+----------------------------------------------+
-; Estimated Total logic elements              ; 3,612                                        ;
+; Estimated Total logic elements              ; 4,463                                        ;
 ;                                             ;                                              ;
-; Total combinational functions               ; 3612                                         ;
+; Total combinational functions               ; 4463                                         ;
 ; Logic element usage by number of LUT inputs ;                                              ;
-;     -- 4 input functions                    ; 2345                                         ;
-;     -- 3 input functions                    ; 745                                          ;
-;     -- <=2 input functions                  ; 522                                          ;
+;     -- 4 input functions                    ; 3024                                         ;
+;     -- 3 input functions                    ; 863                                          ;
+;     -- <=2 input functions                  ; 576                                          ;
 ;                                             ;                                              ;
 ; Logic elements by mode                      ;                                              ;
-;     -- normal mode                          ; 3046                                         ;
+;     -- normal mode                          ; 3897                                         ;
 ;     -- arithmetic mode                      ; 566                                          ;
 ;                                             ;                                              ;
-; Total registers                             ; 140                                          ;
-;     -- Dedicated logic registers            ; 140                                          ;
+; Total registers                             ; 141                                          ;
+;     -- Dedicated logic registers            ; 141                                          ;
 ;     -- I/O registers                        ; 0                                            ;
 ;                                             ;                                              ;
-; I/O pins                                    ; 30                                           ;
+; I/O pins                                    ; 38                                           ;
 ; Embedded Multiplier 9-bit elements          ; 0                                            ;
 ; Total PLLs                                  ; 1                                            ;
 ;     -- PLLs                                 ; 1                                            ;
 ;                                             ;                                              ;
 ; Maximum fan-out node                        ; pll:C|pll_altpll_0:altpll_0|altpll:sd1|_clk0 ;
-; Maximum fan-out                             ; 140                                          ;
-; Total fan-out                               ; 13053                                        ;
-; Average fan-out                             ; 3.45                                         ;
+; Maximum fan-out                             ; 141                                          ;
+; Total fan-out                               ; 16367                                        ;
+; Average fan-out                             ; 3.53                                         ;
 +---------------------------------------------+----------------------------------------------+
 
 
@@ -220,8 +220,8 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +-------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------+--------------+
 ; Compilation Hierarchy Node    ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                         ; Library Name ;
 +-------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------+--------------+
-; |VGA                          ; 3612 (1)          ; 140 (0)      ; 0           ; 0            ; 0       ; 0         ; 30   ; 0            ; |VGA                                        ; work         ;
-;    |SYNC:C1|                  ; 3611 (3611)       ; 140 (140)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|SYNC:C1                                ; work         ;
+; |VGA                          ; 4463 (2)          ; 141 (0)      ; 0           ; 0            ; 0       ; 0         ; 38   ; 0            ; |VGA                                        ; work         ;
+;    |SYNC:C1|                  ; 4461 (4461)       ; 141 (141)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|SYNC:C1                                ; work         ;
 ;    |pll:C|                    ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|pll:C                                  ; pll          ;
 ;       |pll_altpll_0:altpll_0| ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|pll:C|pll_altpll_0:altpll_0            ; pll          ;
 ;          |altpll:sd1|         ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|pll:C|pll_altpll_0:altpll_0|altpll:sd1 ; work         ;
@@ -254,9 +254,9 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 140   ;
+; Total registers                              ; 141   ;
 ; Number of registers using Synchronous Clear  ; 26    ;
-; Number of registers using Synchronous Load   ; 4     ;
+; Number of registers using Synchronous Load   ; 68    ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
 ; Number of registers using Clock Enable       ; 115   ;
@@ -269,28 +269,28 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------------------------+---------+
 ; Inverted Register                       ; Fan out ;
 +-----------------------------------------+---------+
-; SYNC:C1|SQ_Y2[9]                        ; 30      ;
-; SYNC:C1|SQ_Y2[8]                        ; 49      ;
-; SYNC:C1|SQ_Y2[7]                        ; 56      ;
-; SYNC:C1|SQ_Y2[6]                        ; 76      ;
-; SYNC:C1|SQ_Y2[5]                        ; 53      ;
-; SYNC:C1|SQ_Y2[3]                        ; 58      ;
+; SYNC:C1|SQ_Y2[9]                        ; 33      ;
+; SYNC:C1|SQ_Y2[8]                        ; 46      ;
+; SYNC:C1|SQ_Y2[7]                        ; 51      ;
+; SYNC:C1|SQ_Y2[6]                        ; 61      ;
+; SYNC:C1|SQ_Y2[5]                        ; 50      ;
+; SYNC:C1|SQ_Y2[3]                        ; 61      ;
 ; SYNC:C1|SQ_X2[8]                        ; 10      ;
 ; SYNC:C1|SQ_X2[7]                        ; 10      ;
-; SYNC:C1|SQ_X2[6]                        ; 10      ;
-; SYNC:C1|SQ_X2[3]                        ; 35      ;
-; SYNC:C1|SQ_X2[2]                        ; 26      ;
-; SYNC:C1|SQ_Y1[9]                        ; 33      ;
-; SYNC:C1|SQ_Y1[8]                        ; 55      ;
-; SYNC:C1|SQ_Y1[7]                        ; 62      ;
-; SYNC:C1|SQ_Y1[6]                        ; 70      ;
-; SYNC:C1|SQ_Y1[5]                        ; 58      ;
-; SYNC:C1|SQ_Y1[3]                        ; 35      ;
-; SYNC:C1|SQ_X1[8]                        ; 47      ;
+; SYNC:C1|SQ_X2[6]                        ; 11      ;
+; SYNC:C1|SQ_X2[3]                        ; 33      ;
+; SYNC:C1|SQ_X2[2]                        ; 24      ;
+; SYNC:C1|SQ_Y1[9]                        ; 34      ;
+; SYNC:C1|SQ_Y1[8]                        ; 52      ;
+; SYNC:C1|SQ_Y1[7]                        ; 67      ;
+; SYNC:C1|SQ_Y1[6]                        ; 67      ;
+; SYNC:C1|SQ_Y1[5]                        ; 52      ;
+; SYNC:C1|SQ_Y1[3]                        ; 36      ;
+; SYNC:C1|SQ_X1[8]                        ; 50      ;
 ; SYNC:C1|SQ_X1[7]                        ; 46      ;
 ; SYNC:C1|SQ_X1[5]                        ; 39      ;
-; SYNC:C1|SQ_X1[4]                        ; 41      ;
-; SYNC:C1|SQ_X1[1]                        ; 27      ;
+; SYNC:C1|SQ_X1[4]                        ; 39      ;
+; SYNC:C1|SQ_X1[1]                        ; 24      ;
 ; Total number of inverted registers = 22 ;         ;
 +-----------------------------------------+---------+
 
@@ -300,18 +300,18 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
-; 3:1                ; 5 bits    ; 10 LEs        ; 0 LEs                ; 10 LEs                 ; Yes        ; |VGA|SYNC:C1|SQ_X1[6]      ;
-; 3:1                ; 5 bits    ; 10 LEs        ; 0 LEs                ; 10 LEs                 ; Yes        ; |VGA|SYNC:C1|SQ_X2[5]      ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ_Y1[4]      ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ_Y2[2]      ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ1_Jump[5]   ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ2_Jump[8]   ;
-; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |VGA|SYNC:C1|G[2]          ;
+; 3:1                ; 5 bits    ; 10 LEs        ; 0 LEs                ; 10 LEs                 ; Yes        ; |VGA|SYNC:C1|SQ_X1[10]     ;
+; 3:1                ; 5 bits    ; 10 LEs        ; 0 LEs                ; 10 LEs                 ; Yes        ; |VGA|SYNC:C1|SQ_X2[1]      ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ_Y1[10]     ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ_Y2[1]      ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ1_Jump[4]   ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ2_Jump[7]   ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |VGA|SYNC:C1|G[3]          ;
 ; 8:1                ; 2 bits    ; 10 LEs        ; 8 LEs                ; 2 LEs                  ; Yes        ; |VGA|SYNC:C1|R[2]          ;
 ; 3:1                ; 5 bits    ; 10 LEs        ; 0 LEs                ; 10 LEs                 ; Yes        ; |VGA|SYNC:C1|SQ_X1[5]      ;
 ; 3:1                ; 5 bits    ; 10 LEs        ; 0 LEs                ; 10 LEs                 ; Yes        ; |VGA|SYNC:C1|SQ_X2[8]      ;
-; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ_Y1[8]      ;
-; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ_Y2[5]      ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ_Y1[6]      ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ_Y2[9]      ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
 
 
@@ -740,7 +740,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:12     ;
+; Top            ; 00:00:18     ;
 +----------------+--------------+
 
 
@@ -750,7 +750,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 32-bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Sun Jun 11 16:24:08 2017
+    Info: Processing started: Sun Jun 11 17:15:39 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off VGA -c VGA
 Warning (20028): Parallel compilation is not licensed and has been disabled
 Info (12021): Found 2 design units, including 0 entities, in source file GameMap.vhd
@@ -775,7 +775,7 @@ Info (12021): Found 2 design units, including 0 entities, in source file pcg.vhd
     Info (12022): Found design unit 1: MY
     Info (12022): Found design unit 2: MY-body
 Info (12127): Elaborating entity "VGA" for the top level hierarchy
-Warning (10541): VHDL Signal Declaration warning at VGA.vhd(20): used implicit default value for signal "RESET" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
+Warning (10541): VHDL Signal Declaration warning at VGA.vhd(21): used implicit default value for signal "RESET" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
 Info (12128): Elaborating entity "pll" for hierarchy "pll:C"
 Info (12128): Elaborating entity "pll_altpll_0" for hierarchy "pll:C|pll_altpll_0:altpll_0"
 Info (12128): Elaborating entity "pll_altpll_0_stdsync_sv6" for hierarchy "pll:C|pll_altpll_0:altpll_0|pll_altpll_0_stdsync_sv6:stdsync2"
@@ -808,11 +808,10 @@ Info (12133): Instantiated megafunction "pll:C|pll_altpll_0:altpll_0|altpll:sd1"
     Info (12134): Parameter "intended_device_family" = "Cyclone II"
     Info (12134): Parameter "lpm_type" = "altpll"
 Info (12128): Elaborating entity "SYNC" for hierarchy "SYNC:C1"
-Warning (10540): VHDL Signal Declaration warning at Vhdl2.vhd(79): used explicit default value for signal "X1size" because signal was never assigned a value
-Warning (10540): VHDL Signal Declaration warning at Vhdl2.vhd(80): used explicit default value for signal "Y1size" because signal was never assigned a value
-Warning (10540): VHDL Signal Declaration warning at Vhdl2.vhd(81): used explicit default value for signal "X2size" because signal was never assigned a value
-Warning (10540): VHDL Signal Declaration warning at Vhdl2.vhd(82): used explicit default value for signal "Y2size" because signal was never assigned a value
-Warning (10036): Verilog HDL or VHDL warning at Vhdl2.vhd(131): object "OVER" assigned a value but never read
+Warning (10540): VHDL Signal Declaration warning at Vhdl2.vhd(81): used explicit default value for signal "X1size" because signal was never assigned a value
+Warning (10540): VHDL Signal Declaration warning at Vhdl2.vhd(82): used explicit default value for signal "Y1size" because signal was never assigned a value
+Warning (10540): VHDL Signal Declaration warning at Vhdl2.vhd(83): used explicit default value for signal "X2size" because signal was never assigned a value
+Warning (10540): VHDL Signal Declaration warning at Vhdl2.vhd(84): used explicit default value for signal "Y2size" because signal was never assigned a value
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 8 input pin(s) that do not drive logic
@@ -824,15 +823,15 @@ Warning (21074): Design contains 8 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "SW[6]"
     Warning (15610): No output dependent on input pin "SW[7]"
     Warning (15610): No output dependent on input pin "KEY[3]"
-Info (21057): Implemented 3643 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 4502 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 16 input pins
-    Info (21059): Implemented 14 output pins
-    Info (21061): Implemented 3612 logic cells
+    Info (21059): Implemented 22 output pins
+    Info (21061): Implemented 4463 logic cells
     Info (21065): Implemented 1 PLLs
-Info: Quartus II 32-bit Analysis & Synthesis was successful. 0 errors, 16 warnings
-    Info: Peak virtual memory: 420 megabytes
-    Info: Processing ended: Sun Jun 11 16:24:24 2017
-    Info: Elapsed time: 00:00:16
-    Info: Total CPU time (on all processors): 00:00:15
+Info: Quartus II 32-bit Analysis & Synthesis was successful. 0 errors, 15 warnings
+    Info: Peak virtual memory: 430 megabytes
+    Info: Processing ended: Sun Jun 11 17:16:01 2017
+    Info: Elapsed time: 00:00:22
+    Info: Total CPU time (on all processors): 00:00:22
 
 
