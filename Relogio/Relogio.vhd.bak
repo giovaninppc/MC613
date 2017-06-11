@@ -1,0 +1,83 @@
+-- Simulador de Relogio
+
+library ieee;
+use ieee.std_logic_1164.all;
+library work;
+use work.conv_7seg_package.all;
+use work.BCDN_package.all;
+use work.clockDivisor_package.all;
+
+entity Relogio is
+	port (SW   : in  std_logic_vector(9 downto 0);
+			KEY  : in  std_logic_vector(3 downto 0);
+			LEDR : out std_logic_vector(9 downto 0);
+			LEDG : out std_logic_vector(7 downto 0);
+			HEX0 : out std_logic_vector(6 downto 0);
+			HEX1 : out std_logic_vector(6 downto 0);
+			HEX2 : out std_logic_vector(6 downto 0);
+			HEX3 : out std_logic_vector(6 downto 0);
+			CLOCK_50 : in std_logic);
+end Relogio;
+
+architecture Comportamento of Relogio is
+	
+	SIGNAL ClockSegundo: std_logic;
+	SIGNAL E1, E2, E3, E4, E5, E6: std_logic_vector (3 DOWNTO 0);
+	SIGNAL C1, C2, C3, C4, C5: std_logic;
+	SIGNAL timeLimit: std_logic;
+	SIGNAL SysClock: std_logic;
+	
+begin
+	
+	-- Divisor de Clock
+	cd: clockDivisor PORT MAP(CLOCK_50, SysClock);
+	
+	-- Contadores de tempo
+	segundo0: BCDN GENERIC MAP (N => 10)
+						PORT MAP(SysClock, '0', '1', '0', SW(3 DOWNTO 0), E1);
+	WITH E1 SELECT
+		C1 <= '1' WHEN "1001",
+			   '0' WHEN OTHERS;
+			
+	segundo1: BCDN GENERIC MAP (N => 6)
+						PORT MAP(C1, '0', '1', '0', SW(3 DOWNTO 0), E2);
+	
+	WITH E2 SELECT
+		C2 <= '1' WHEN "0101",
+			   '0' WHEN OTHERS;
+	
+	minuto0: BCDN  GENERIC MAP (N => 10)
+						PORT MAP(C2, '0', '1', '0', SW(3 DOWNTO 0), E3);
+						
+	WITH E3 SELECT
+		C3 <= '1' WHEN "1001",
+			   '0' WHEN OTHERS;
+						
+	minuto1: BCDN  GENERIC MAP (N => 6)
+						PORT MAP(C3, '0', '1', '0', SW(3 DOWNTO 0), E4);
+						
+	WITH E4 SELECT
+		C4 <= '1' WHEN "0101",
+			   '0' WHEN OTHERS;
+						
+	hora0: BCDN    GENERIC MAP (N => 10)
+						PORT MAP(C4, '0', '1', '0', SW(3 DOWNTO 0), E5);
+						
+	WITH E5 SELECT
+		C5 <= '1' WHEN "0010",
+			   '0' WHEN OTHERS;
+						
+	hora1: BCDN    GENERIC MAP (N => 2)
+						PORT MAP(C5, '0', '1', '0', SW(3 DOWNTO 0), E6);
+	
+	
+	-- Selecao do numero
+	
+	-- Conversores de 7 Seg
+	conv0: conv_7seg PORT MAP(E1, HEX0);
+	conv1: conv_7seg PORT MAP(E2, HEX1);
+	conv2: conv_7seg PORT MAP(E3, HEX2);
+	conv3: conv_7seg PORT MAP(E4, HEX3);
+	
+		
+end Comportamento;
