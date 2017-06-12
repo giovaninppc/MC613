@@ -19,7 +19,7 @@ PACKAGE SYNC_Package IS
 	R: OUT STD_LOGIC_VECTOR(3 downto 0);
 	G: OUT STD_LOGIC_VECTOR(3 downto 0);
 	B: OUT STD_LOGIC_VECTOR(3 downto 0);
-	KEYS: IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+	directions: IN STD_LOGIC_VECTOR(2 DOWNTO 0);
 	S: IN STD_LOGIC_VECTOR(1 downto 0);
 	C: IN STD_LOGIC_VECTOR(1 DOWNTO 0);
 	OVER: OUT STD_LOGIC
@@ -43,7 +43,7 @@ VSYNC: OUT STD_LOGIC;
 R: OUT STD_LOGIC_VECTOR(3 downto 0);
 G: OUT STD_LOGIC_VECTOR(3 downto 0);
 B: OUT STD_LOGIC_VECTOR(3 downto 0);
-KEYS: IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+directions: IN STD_LOGIC_VECTOR(2 DOWNTO 0);
 S: IN STD_LOGIC_VECTOR(1 downto 0);
 C: IN STD_LOGIC_VECTOR(1 DOWNTO 0);
 OVER: OUT STD_LOGIC
@@ -217,192 +217,192 @@ SQ2_esq <= (esqQ2X1 OR esqQ2X2 OR contatoA2 OR contatoB2);
 SQ2_up <= dirQ2X1 OR esqQ2X1;
  
 -- INICIO DA LOGICA E IMPRESSAO EM VGA
- PROCESS(CLK)
- BEGIN
-IF(CLK'EVENT AND CLK='1')THEN
+PROCESS(CLK)
+BEGIN
+	IF(CLK'EVENT AND CLK='1')THEN
 
-		-- VERIFICA FINAL DO JOGO
-		IF	SQ_X1 < 460 AND SQ_X2 < 435 AND SQ_Y1 < 100 AND SQ_Y2 < 100 THEN
-			-- GAME OVER
-			OVER <= '1';
-		ELSE 
-			OVER <= '0';
-		END IF;
-		
-		-- DESENHA OS PLAYERS
-		-- SQ 1 retornou verdadeiro
-      IF(DRAW1='1')THEN
-		  IF(S(0)='1')THEN
-			R<=(others=>'1');
+			-- VERIFICA FINAL DO JOGO
+			IF	SQ_X1 < 460 AND SQ_X2 < 435 AND SQ_Y1 < 100 AND SQ_Y2 < 100 THEN
+				-- GAME OVER
+				OVER <= '1';
+			ELSE 
+				OVER <= '0';
+			END IF;
+			
+			-- DESENHA OS PLAYERS
+			-- SQ 1 retornou verdadeiro
+			IF(DRAW1='1')THEN
+			  IF(S(0)='1')THEN
+				R<=(others=>'1');
+				G<=(others=>'0');
+				B<=(others=>'0');
+				ELSE
+				R<=(others=>'1');
+				G<=(others=>'1');
+				B<=(others=>'1');
+				END IF;
+			END IF;
+			
+			-- SQ 2 retornou verdadeiro
+			 IF(DRAW2='1')THEN
+			  IF(S(1)='1')THEN
+				R<=(others=>'0');
+				G<=(others=>'1');
+				B<=(others=>'0');
+				ELSE
+				R<=(others=>'1');
+				G<=(others=>'1');
+				B<=(others=>'1');
+			  END IF;
+			END IF;
+			
+			-- DESENHA O MAPA
+			IF (DRAW1='0' AND DRAW2='0')THEN
+			
+				-- Final do Jogo!!!
+				IF HPOS < 508 AND VPOS < 110 AND DRAWMAP = '0' THEN
+					R<="0011";
+					G<="0100";
+					B<="1111";
+				
+				ELSIF C(1)='0' AND C(0)='0' THEN -- Padrao de cores 1
+					IF DRAWMAP = '1' THEN	-- Desenhando o mapa
+						R<=(others=>'1');
+						G<=(others=>'1');
+						B<=(others=>'1');
+					ELSE--background
+						R<=(others=>'0');
+						G<=(others=>'0');
+						B<=(others=>'0');
+					END IF;
+					
+				ELSIF C(0)='0' AND C(1)='1' THEN -- Padrao de cores 2
+					IF DRAWMAP = '1' THEN	-- Desenhando o mapa
+						R<= "0001";
+						G<= "0001";
+						B<= "0001";
+					ELSE--background
+						R<= "0011";
+						G<= "0010";
+						B<= "1010";
+					END IF;
+					
+				ELSIF C(0)='1' AND C(1)='0' THEN -- Padrao de cores 3
+					IF DRAWMAP = '1' THEN	-- Desenhando o mapa
+						R<=(others=>'0');
+						G<=(others=>'0');
+						B<=(others=>'0');
+					ELSE--background
+						R<= "0111";
+						G<= "0010";
+						B<= "0000";
+					END IF;
+					
+				ELSE							   -- Padrao de cores 2
+					IF DRAWMAP = '1' THEN	-- Desenhando o mapa
+						R<=(others=>'0');
+						G<=(others=>'0');
+						B<=(others=>'0');
+					ELSE--background
+						R<= "0010";
+						G<= "0011";
+						B<= "0010";
+					END IF;
+				END IF;
+			END IF;
+			
+			
+			IF(HPOS<1688)THEN
+			HPOS<=HPOS+1;
+			ELSE
+			HPOS<=0;
+			  IF(VPOS<1066)THEN
+				  VPOS<=VPOS+1;
+				  ELSE
+				  VPOS<=0;
+				  
+						-- Simulador de gravidade
+						IF SQ1_noAR = '1' THEN
+							SQ_Y1<=SQ_Y1+2;
+						END IF;
+						
+						IF SQ2_noAR = '1' THEN
+							SQ_Y2<=SQ_Y2+2;
+						END IF;
+						
+						-- Executa o Salto
+						IF SQ1_Jump > 0 THEN
+							IF SQ1_up = '0' AND SQ_Y1 > 42 THEN
+								SQ_Y1<=SQ_Y1-2;
+								SQ1_Jump <= SQ1_Jump - 1;
+							ELSE
+								SQ1_Jump <= 0;
+							END IF;
+						END IF;
+						
+						-- Executa o Salto
+						IF SQ2_Jump > 0 THEN
+							IF SQ2_up = '0'  AND SQ_Y2 > 42 THEN
+								SQ_Y2<=SQ_Y2-2;
+								SQ2_Jump <= SQ2_Jump - 1;
+							ELSE
+								SQ2_Jump <= 0;
+							END IF;
+						END IF;
+						
+						-- Faz a movimentacao!!!! TODO: Alterar o directions pelo teclado depois!!!
+						-- Jogador 1
+						IF(S(0)='1')THEN
+							-- Mover para a direita
+							 IF(directions(0)='1' AND SQ1_dir = '0' AND SQ_X1 < (1687 - X1Size))THEN
+							  SQ_X1<=SQ_X1+2;
+							 END IF;
+							 -- Mover para a esquerda
+							 IF(directions(1)='1' AND SQ1_esq = '0' AND SQ_X1 > 409)THEN
+							  SQ_X1<=SQ_X1-2;
+							 END IF;
+							 -- Pulo / Ele so pula se nao estiver no ar, e nao houver outro jogador em cima dele
+							  IF(directions(2)='1' AND SQ1_noAR = '0' AND touchDown2 = '0')THEN
+							  SQ1_Jump <= 30;
+							 END IF;
+							 
+						END IF;
+						-- Jogador 2
+						IF(S(1)='1')THEN
+							-- Mover para a direita
+							 IF(directions(0)='1' AND SQ2_dir = '0' AND SQ_X2 < (1687 - X2Size))THEN
+							  SQ_X2<=SQ_X2+2;
+							 END IF;
+							 -- Mover para a esquerda
+							 IF(directions(1)='1' AND SQ2_esq = '0' AND SQ_X2 > 409)THEN
+							  SQ_X2<=SQ_X2-2;
+							 END IF;
+							 -- Pulo/ Ele so pula se nao estiver no ar, e nao houver outro jogador em cima dele
+							  IF(directions(2)='1' AND SQ2_noAR = '0' AND touchDown1 = '0')THEN
+							  SQ2_Jump <= 30;
+							 END IF;
+							  
+						END IF;  
+					END IF;
+			END IF;
+			
+		-- Sync Positions --
+		IF((HPOS>0 AND HPOS<408) OR (VPOS>0 AND VPOS<42))THEN
+			R<=(others=>'0');
 			G<=(others=>'0');
 			B<=(others=>'0');
-			ELSE
-			R<=(others=>'1');
-			G<=(others=>'1');
-			B<=(others=>'1');
-			END IF;
-      END IF;
-		
-		-- SQ 2 retornou verdadeiro
-		 IF(DRAW2='1')THEN
-		  IF(S(1)='1')THEN
-			R<=(others=>'0');
-			G<=(others=>'1');
-			B<=(others=>'0');
-			ELSE
-			R<=(others=>'1');
-			G<=(others=>'1');
-			B<=(others=>'1');
-		  END IF;
-      END IF;
-		
-		-- DESENHA O MAPA
-		IF (DRAW1='0' AND DRAW2='0')THEN
-		
-			-- Final do Jogo!!!
-			IF HPOS < 508 AND VPOS < 110 AND DRAWMAP = '0' THEN
-				R<="0011";
-				G<="0100";
-				B<="1111";
-			
-			ELSIF C(1)='0' AND C(0)='0' THEN -- Padrao de cores 1
-				IF DRAWMAP = '1' THEN	-- Desenhando o mapa
-					R<=(others=>'1');
-					G<=(others=>'1');
-					B<=(others=>'1');
-				ELSE--background
-					R<=(others=>'0');
-					G<=(others=>'0');
-					B<=(others=>'0');
-				END IF;
-				
-			ELSIF C(0)='0' AND C(1)='1' THEN -- Padrao de cores 2
-				IF DRAWMAP = '1' THEN	-- Desenhando o mapa
-					R<= "0001";
-					G<= "0001";
-					B<= "0001";
-				ELSE--background
-					R<= "0011";
-					G<= "0010";
-					B<= "1010";
-				END IF;
-				
-			ELSIF C(0)='1' AND C(1)='0' THEN -- Padrao de cores 3
-				IF DRAWMAP = '1' THEN	-- Desenhando o mapa
-					R<=(others=>'0');
-					G<=(others=>'0');
-					B<=(others=>'0');
-				ELSE--background
-					R<= "0111";
-					G<= "0010";
-					B<= "0000";
-				END IF;
-				
-			ELSE							   -- Padrao de cores 2
-				IF DRAWMAP = '1' THEN	-- Desenhando o mapa
-					R<=(others=>'0');
-					G<=(others=>'0');
-					B<=(others=>'0');
-				ELSE--background
-					R<= "0010";
-					G<= "0011";
-					B<= "0010";
-				END IF;
-			END IF;
 		END IF;
 		
-		
-		IF(HPOS<1688)THEN
-		HPOS<=HPOS+1;
+		IF(HPOS>48 AND HPOS<160)THEN----HSYNC
+			HSYNC<='0';
 		ELSE
-		HPOS<=0;
-		  IF(VPOS<1066)THEN
-			  VPOS<=VPOS+1;
-			  ELSE
-			  VPOS<=0;
-			  
-					-- Simulador de gravidade
-					IF SQ1_noAR = '1' THEN
-						SQ_Y1<=SQ_Y1+2;
-					END IF;
-					
-					IF SQ2_noAR = '1' THEN
-						SQ_Y2<=SQ_Y2+2;
-					END IF;
-					
-					-- Executa o Salto
-					IF SQ1_Jump > 0 THEN
-						IF SQ1_up = '0' AND SQ_Y1 > 42 THEN
-							SQ_Y1<=SQ_Y1-2;
-							SQ1_Jump <= SQ1_Jump - 1;
-						ELSE
-							SQ1_Jump <= 0;
-						END IF;
-					END IF;
-					
-					-- Executa o Salto
-					IF SQ2_Jump > 0 THEN
-						IF SQ2_up = '0'  AND SQ_Y2 > 42 THEN
-							SQ_Y2<=SQ_Y2-2;
-							SQ2_Jump <= SQ2_Jump - 1;
-						ELSE
-							SQ2_Jump <= 0;
-						END IF;
-					END IF;
-					
-					-- Faz a movimentacao!!!! TODO: Alterar o Keys pelo teclado depois!!!
-					-- Jogador 1
-			      IF(S(0)='1')THEN
-						-- Mover para a direita
-					    IF(KEYS(0)='0' AND SQ1_dir = '0' AND SQ_X1 < (1687 - X1Size))THEN
-						  SQ_X1<=SQ_X1+2;
-						 END IF;
-						 -- Mover para a esquerda
-                   IF(KEYS(1)='0' AND SQ1_esq = '0' AND SQ_X1 > 409)THEN
-						  SQ_X1<=SQ_X1-2;
-						 END IF;
-						 -- Pulo / Ele so pula se nao estiver no ar, e nao houver outro jogador em cima dele
-						  IF(KEYS(2)='0' AND SQ1_noAR = '0' AND touchDown2 = '0')THEN
-						  SQ1_Jump <= 30;
-						 END IF;
-						 
-					END IF;
-					-- Jogador 2
-			      IF(S(1)='1')THEN
-						-- Mover para a direita
-					    IF(KEYS(0)='0' AND SQ2_dir = '0' AND SQ_X2 < (1687 - X2Size))THEN
-						  SQ_X2<=SQ_X2+2;
-						 END IF;
-						 -- Mover para a esquerda
-                   IF(KEYS(1)='0' AND SQ2_esq = '0' AND SQ_X2 > 409)THEN
-						  SQ_X2<=SQ_X2-2;
-						 END IF;
-						 -- Pulo/ Ele so pula se nao estiver no ar, e nao houver outro jogador em cima dele
-						  IF(KEYS(2)='0' AND SQ2_noAR = '0' AND touchDown1 = '0')THEN
-						  SQ2_Jump <= 30;
-						 END IF;
-						  
-					END IF;  
-		      END IF;
+			HSYNC<='1';
 		END IF;
-		
-	-- Sync Positions --
-   IF((HPOS>0 AND HPOS<408) OR (VPOS>0 AND VPOS<42))THEN
-		R<=(others=>'0');
-		G<=(others=>'0');
-		B<=(others=>'0');
-	END IF;
-	
-   IF(HPOS>48 AND HPOS<160)THEN----HSYNC
-	   HSYNC<='0';
-	ELSE
-	   HSYNC<='1';
-	END IF;
-   IF(VPOS>0 AND VPOS<4)THEN----------vsync
-	   VSYNC<='0';
-	ELSE
-	   VSYNC<='1';
-	END IF;
- END IF;
+		IF(VPOS>0 AND VPOS<4)THEN----------vsync
+			VSYNC<='0';
+		ELSE
+			VSYNC<='1';
+		END IF;
+	 END IF;
  END PROCESS;
  END MAIN;

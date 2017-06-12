@@ -1,5 +1,5 @@
 Analysis & Synthesis report for VGA
-Sun Jun 11 17:16:01 2017
+Mon Jun 12 20:47:41 2017
 Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -14,17 +14,25 @@ Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edit
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
   8. Analysis & Synthesis IP Cores Summary
-  9. Registers Removed During Synthesis
- 10. General Register Statistics
- 11. Inverted Register Statistics
- 12. Multiplexer Restructuring Statistics (Restructuring Performed)
- 13. Source assignments for pll:C|pll_altpll_0:altpll_0
- 14. Source assignments for pll:C|pll_altpll_0:altpll_0|pll_altpll_0_stdsync_sv6:stdsync2|pll_altpll_0_dffpipe_l2c:dffpipe3
- 15. Parameter Settings for User Entity Instance: pll:C|pll_altpll_0:altpll_0|altpll:sd1
- 16. altpll Parameter Settings by Entity Instance
- 17. Port Connectivity Checks: "pll:C|pll_altpll_0:altpll_0"
- 18. Elapsed Time Per Partition
- 19. Analysis & Synthesis Messages
+  9. State Machine - |VGA|ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|cmdstate
+ 10. State Machine - |VGA|ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|state
+ 11. User-Specified and Inferred Latches
+ 12. Registers Removed During Synthesis
+ 13. Removed Registers Triggering Further Register Optimizations
+ 14. General Register Statistics
+ 15. Inverted Register Statistics
+ 16. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 17. Source assignments for pll:C|pll_altpll_0:altpll_0
+ 18. Source assignments for pll:C|pll_altpll_0:altpll_0|pll_altpll_0_stdsync_sv6:stdsync2|pll_altpll_0_dffpipe_l2c:dffpipe3
+ 19. Parameter Settings for User Entity Instance: ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl
+ 20. Parameter Settings for User Entity Instance: ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl
+ 21. Parameter Settings for User Entity Instance: pll:C|pll_altpll_0:altpll_0|altpll:sd1
+ 22. altpll Parameter Settings by Entity Instance
+ 23. Port Connectivity Checks: "Relogio:clock|BCDN:segundo1"
+ 24. Port Connectivity Checks: "pll:C|pll_altpll_0:altpll_0"
+ 25. Port Connectivity Checks: "ps2_kbd:keyboard"
+ 26. Elapsed Time Per Partition
+ 27. Analysis & Synthesis Messages
 
 
 
@@ -50,16 +58,16 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sun Jun 11 17:16:01 2017           ;
+; Analysis & Synthesis Status        ; Successful - Mon Jun 12 20:47:39 2017           ;
 ; Quartus II 32-bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; VGA                                             ;
 ; Top-level Entity Name              ; VGA                                             ;
 ; Family                             ; Cyclone II                                      ;
-; Total logic elements               ; 4,463                                           ;
-;     Total combinational functions  ; 4,463                                           ;
-;     Dedicated logic registers      ; 141                                             ;
-; Total registers                    ; 141                                             ;
-; Total pins                         ; 38                                              ;
+; Total logic elements               ; 4,862                                           ;
+;     Total combinational functions  ; 4,822                                           ;
+;     Dedicated logic registers      ; 322                                             ;
+; Total registers                    ; 322                                             ;
+; Total pins                         ; 71                                              ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 0                                               ;
 ; Embedded Multiplier 9-bit elements ; 0                                               ;
@@ -163,23 +171,30 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------+--------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                  ;
-+-----------------------------------------+-----------------+------------------------+------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path        ; Used in Netlist ; File Type              ; File Name with Absolute Path                                                             ; Library ;
-+-----------------------------------------+-----------------+------------------------+------------------------------------------------------------------------------------------+---------+
-; GameMap.vhd                             ; yes             ; User VHDL File         ; /home/ec2015/ra168609/MC613/GIT/Thomas Was Alone/GameMap.vhd                             ;         ;
-; pll/synthesis/pll.vhd                   ; yes             ; User VHDL File         ; /home/ec2015/ra168609/MC613/GIT/Thomas Was Alone/pll/synthesis/pll.vhd                   ; pll     ;
-; pll/synthesis/submodules/pll_altpll_0.v ; yes             ; User Verilog HDL File  ; /home/ec2015/ra168609/MC613/GIT/Thomas Was Alone/pll/synthesis/submodules/pll_altpll_0.v ; pll     ;
-; VGA.vhd                                 ; yes             ; User VHDL File         ; /home/ec2015/ra168609/MC613/GIT/Thomas Was Alone/VGA.vhd                                 ;         ;
-; Vhdl2.vhd                               ; yes             ; User VHDL File         ; /home/ec2015/ra168609/MC613/GIT/Thomas Was Alone/Vhdl2.vhd                               ;         ;
-; pcg.vhd                                 ; yes             ; User VHDL File         ; /home/ec2015/ra168609/MC613/GIT/Thomas Was Alone/pcg.vhd                                 ;         ;
-; altpll.tdf                              ; yes             ; Megafunction           ; /opt/altera13sp1/quartus/libraries/megafunctions/altpll.tdf                              ;         ;
-; aglobal130.inc                          ; yes             ; Megafunction           ; /opt/altera13sp1/quartus/libraries/megafunctions/aglobal130.inc                          ;         ;
-; stratix_pll.inc                         ; yes             ; Megafunction           ; /opt/altera13sp1/quartus/libraries/megafunctions/stratix_pll.inc                         ;         ;
-; stratixii_pll.inc                       ; yes             ; Megafunction           ; /opt/altera13sp1/quartus/libraries/megafunctions/stratixii_pll.inc                       ;         ;
-; cycloneii_pll.inc                       ; yes             ; Megafunction           ; /opt/altera13sp1/quartus/libraries/megafunctions/cycloneii_pll.inc                       ;         ;
-+-----------------------------------------+-----------------+------------------------+------------------------------------------------------------------------------------------+---------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                   ;
++-----------------------------------------+-----------------+------------------------+-----------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path        ; Used in Netlist ; File Type              ; File Name with Absolute Path                                                                              ; Library ;
++-----------------------------------------+-----------------+------------------------+-----------------------------------------------------------------------------------------------------------+---------+
+; keyboard/ps2_kbd.vhd                    ; yes             ; User VHDL File         ; /home/ec2015/ra169767/prog/trabalho/VHDL-Modules/Thomas Was Alone/keyboard/ps2_kbd.vhd                    ;         ;
+; keyboard/ps2_iobase.vhd                 ; yes             ; User VHDL File         ; /home/ec2015/ra169767/prog/trabalho/VHDL-Modules/Thomas Was Alone/keyboard/ps2_iobase.vhd                 ;         ;
+; keyboard/kbdex_ctrl.vhd                 ; yes             ; User VHDL File         ; /home/ec2015/ra169767/prog/trabalho/VHDL-Modules/Thomas Was Alone/keyboard/kbdex_ctrl.vhd                 ;         ;
+; relogio/Relogio.vhd                     ; yes             ; User VHDL File         ; /home/ec2015/ra169767/prog/trabalho/VHDL-Modules/Thomas Was Alone/relogio/Relogio.vhd                     ;         ;
+; relogio/conv7_seg.vhd                   ; yes             ; User VHDL File         ; /home/ec2015/ra169767/prog/trabalho/VHDL-Modules/Thomas Was Alone/relogio/conv7_seg.vhd                   ;         ;
+; relogio/clockDivisor.vhd                ; yes             ; User VHDL File         ; /home/ec2015/ra169767/prog/trabalho/VHDL-Modules/Thomas Was Alone/relogio/clockDivisor.vhd                ;         ;
+; relogio/BCDN.vhd                        ; yes             ; User VHDL File         ; /home/ec2015/ra169767/prog/trabalho/VHDL-Modules/Thomas Was Alone/relogio/BCDN.vhd                        ;         ;
+; GameMap.vhd                             ; yes             ; User VHDL File         ; /home/ec2015/ra169767/prog/trabalho/VHDL-Modules/Thomas Was Alone/GameMap.vhd                             ;         ;
+; pll/synthesis/pll.vhd                   ; yes             ; User VHDL File         ; /home/ec2015/ra169767/prog/trabalho/VHDL-Modules/Thomas Was Alone/pll/synthesis/pll.vhd                   ; pll     ;
+; pll/synthesis/submodules/pll_altpll_0.v ; yes             ; User Verilog HDL File  ; /home/ec2015/ra169767/prog/trabalho/VHDL-Modules/Thomas Was Alone/pll/synthesis/submodules/pll_altpll_0.v ; pll     ;
+; VGA.vhd                                 ; yes             ; User VHDL File         ; /home/ec2015/ra169767/prog/trabalho/VHDL-Modules/Thomas Was Alone/VGA.vhd                                 ;         ;
+; Vhdl2.vhd                               ; yes             ; User VHDL File         ; /home/ec2015/ra169767/prog/trabalho/VHDL-Modules/Thomas Was Alone/Vhdl2.vhd                               ;         ;
+; pcg.vhd                                 ; yes             ; User VHDL File         ; /home/ec2015/ra169767/prog/trabalho/VHDL-Modules/Thomas Was Alone/pcg.vhd                                 ;         ;
+; altpll.tdf                              ; yes             ; Megafunction           ; /opt/altera13sp1/quartus/libraries/megafunctions/altpll.tdf                                               ;         ;
+; aglobal130.inc                          ; yes             ; Megafunction           ; /opt/altera13sp1/quartus/libraries/megafunctions/aglobal130.inc                                           ;         ;
+; stratix_pll.inc                         ; yes             ; Megafunction           ; /opt/altera13sp1/quartus/libraries/megafunctions/stratix_pll.inc                                          ;         ;
+; stratixii_pll.inc                       ; yes             ; Megafunction           ; /opt/altera13sp1/quartus/libraries/megafunctions/stratixii_pll.inc                                        ;         ;
+; cycloneii_pll.inc                       ; yes             ; Megafunction           ; /opt/altera13sp1/quartus/libraries/megafunctions/cycloneii_pll.inc                                        ;         ;
++-----------------------------------------+-----------------+------------------------+-----------------------------------------------------------------------------------------------------------+---------+
 
 
 +--------------------------------------------------------------------------------------------+
@@ -187,45 +202,58 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +---------------------------------------------+----------------------------------------------+
 ; Resource                                    ; Usage                                        ;
 +---------------------------------------------+----------------------------------------------+
-; Estimated Total logic elements              ; 4,463                                        ;
+; Estimated Total logic elements              ; 4,862                                        ;
 ;                                             ;                                              ;
-; Total combinational functions               ; 4463                                         ;
+; Total combinational functions               ; 4822                                         ;
 ; Logic element usage by number of LUT inputs ;                                              ;
-;     -- 4 input functions                    ; 3024                                         ;
-;     -- 3 input functions                    ; 863                                          ;
-;     -- <=2 input functions                  ; 576                                          ;
+;     -- 4 input functions                    ; 3198                                         ;
+;     -- 3 input functions                    ; 925                                          ;
+;     -- <=2 input functions                  ; 699                                          ;
 ;                                             ;                                              ;
 ; Logic elements by mode                      ;                                              ;
-;     -- normal mode                          ; 3897                                         ;
-;     -- arithmetic mode                      ; 566                                          ;
+;     -- normal mode                          ; 4183                                         ;
+;     -- arithmetic mode                      ; 639                                          ;
 ;                                             ;                                              ;
-; Total registers                             ; 141                                          ;
-;     -- Dedicated logic registers            ; 141                                          ;
+; Total registers                             ; 322                                          ;
+;     -- Dedicated logic registers            ; 322                                          ;
 ;     -- I/O registers                        ; 0                                            ;
 ;                                             ;                                              ;
-; I/O pins                                    ; 38                                           ;
+; I/O pins                                    ; 71                                           ;
 ; Embedded Multiplier 9-bit elements          ; 0                                            ;
 ; Total PLLs                                  ; 1                                            ;
 ;     -- PLLs                                 ; 1                                            ;
 ;                                             ;                                              ;
 ; Maximum fan-out node                        ; pll:C|pll_altpll_0:altpll_0|altpll:sd1|_clk0 ;
 ; Maximum fan-out                             ; 141                                          ;
-; Total fan-out                               ; 16367                                        ;
-; Average fan-out                             ; 3.53                                         ;
+; Total fan-out                               ; 18117                                        ;
+; Average fan-out                             ; 3.47                                         ;
 +---------------------------------------------+----------------------------------------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                    ;
-+-------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------+--------------+
-; Compilation Hierarchy Node    ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                         ; Library Name ;
-+-------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------+--------------+
-; |VGA                          ; 4463 (2)          ; 141 (0)      ; 0           ; 0            ; 0       ; 0         ; 38   ; 0            ; |VGA                                        ; work         ;
-;    |SYNC:C1|                  ; 4461 (4461)       ; 141 (141)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|SYNC:C1                                ; work         ;
-;    |pll:C|                    ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|pll:C                                  ; pll          ;
-;       |pll_altpll_0:altpll_0| ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|pll:C|pll_altpll_0:altpll_0            ; pll          ;
-;          |altpll:sd1|         ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|pll:C|pll_altpll_0:altpll_0|altpll:sd1 ; work         ;
-+-------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------+--------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                       ;
++--------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------+--------------+
+; Compilation Hierarchy Node     ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                           ; Library Name ;
++--------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------+--------------+
+; |VGA                           ; 4822 (2)          ; 322 (0)      ; 0           ; 0            ; 0       ; 0         ; 71   ; 0            ; |VGA                                                          ; work         ;
+;    |Relogio:clock|             ; 111 (7)           ; 53 (4)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|Relogio:clock                                            ; work         ;
+;       |BCDN:minuto1|           ; 5 (5)             ; 4 (4)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|Relogio:clock|BCDN:minuto1                               ; work         ;
+;       |BCDN:minuto2|           ; 5 (5)             ; 4 (4)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|Relogio:clock|BCDN:minuto2                               ; work         ;
+;       |BCDN:segundo1|          ; 5 (5)             ; 4 (4)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|Relogio:clock|BCDN:segundo1                              ; work         ;
+;       |BCDN:segundo2|          ; 5 (5)             ; 4 (4)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|Relogio:clock|BCDN:segundo2                              ; work         ;
+;       |clockDivisor:cd|        ; 56 (56)           ; 33 (33)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|Relogio:clock|clockDivisor:cd                            ; work         ;
+;       |conv_7seg:conv0|        ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|Relogio:clock|conv_7seg:conv0                            ; work         ;
+;       |conv_7seg:conv1|        ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|Relogio:clock|conv_7seg:conv1                            ; work         ;
+;       |conv_7seg:conv2|        ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|Relogio:clock|conv_7seg:conv2                            ; work         ;
+;       |conv_7seg:conv3|        ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|Relogio:clock|conv_7seg:conv3                            ; work         ;
+;    |SYNC:C1|                   ; 4462 (4462)       ; 141 (141)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|SYNC:C1                                                  ; work         ;
+;    |pll:C|                     ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|pll:C                                                    ; pll          ;
+;       |pll_altpll_0:altpll_0|  ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|pll:C|pll_altpll_0:altpll_0                              ; pll          ;
+;          |altpll:sd1|          ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|pll:C|pll_altpll_0:altpll_0|altpll:sd1                   ; work         ;
+;    |ps2_kbd:keyboard|          ; 247 (21)          ; 128 (0)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|ps2_kbd:keyboard                                         ; work         ;
+;       |kbdex_ctrl:kbd_ctrl|    ; 226 (89)          ; 128 (54)     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl                     ; work         ;
+;          |ps2_iobase:ps2_ctrl| ; 137 (137)         ; 74 (74)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |VGA|ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl ; work         ;
++--------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
@@ -239,14 +267,94 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------+--------------+---------+--------------+--------------+----------------------------------+------------------------------+
 
 
-+---------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                              ;
-+----------------------------------------+----------------------------------------+
-; Register name                          ; Reason for Removal                     ;
-+----------------------------------------+----------------------------------------+
-; pll:C|pll_altpll_0:altpll_0|prev_reset ; Stuck at GND due to stuck port data_in ;
-; Total Number of Removed Registers = 1  ;                                        ;
-+----------------------------------------+----------------------------------------+
+Encoding Type:  One-Hot
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |VGA|ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|cmdstate                                                                                   ;
++--------------------+----------------+-------------------+------------------+--------------------+------------------+---------------+-----------------+
+; Name               ; cmdstate.CLEAR ; cmdstate.WAITACK1 ; cmdstate.SENDVAL ; cmdstate.SETLIGHTS ; cmdstate.WAITACK ; cmdstate.SEND ; cmdstate.SETCMD ;
++--------------------+----------------+-------------------+------------------+--------------------+------------------+---------------+-----------------+
+; cmdstate.SETCMD    ; 0              ; 0                 ; 0                ; 0                  ; 0                ; 0             ; 0               ;
+; cmdstate.SEND      ; 0              ; 0                 ; 0                ; 0                  ; 0                ; 1             ; 1               ;
+; cmdstate.WAITACK   ; 0              ; 0                 ; 0                ; 0                  ; 1                ; 0             ; 1               ;
+; cmdstate.SETLIGHTS ; 0              ; 0                 ; 0                ; 1                  ; 0                ; 0             ; 1               ;
+; cmdstate.SENDVAL   ; 0              ; 0                 ; 1                ; 0                  ; 0                ; 0             ; 1               ;
+; cmdstate.WAITACK1  ; 0              ; 1                 ; 0                ; 0                  ; 0                ; 0             ; 1               ;
+; cmdstate.CLEAR     ; 1              ; 0                 ; 0                ; 0                  ; 0                ; 0             ; 1               ;
++--------------------+----------------+-------------------+------------------+--------------------+------------------+---------------+-----------------+
+
+
+Encoding Type:  One-Hot
++------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |VGA|ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|state                                                              ;
++---------------+-------------+------------+------------+---------------+------------+--------------+-------------+------------+
+; Name          ; state.CLRDP ; state.EXT1 ; state.EXT0 ; state.RELEASE ; state.CODE ; state.DECODE ; state.FETCH ; state.IDLE ;
++---------------+-------------+------------+------------+---------------+------------+--------------+-------------+------------+
+; state.IDLE    ; 0           ; 0          ; 0          ; 0             ; 0          ; 0            ; 0           ; 0          ;
+; state.FETCH   ; 0           ; 0          ; 0          ; 0             ; 0          ; 0            ; 1           ; 1          ;
+; state.DECODE  ; 0           ; 0          ; 0          ; 0             ; 0          ; 1            ; 0           ; 1          ;
+; state.CODE    ; 0           ; 0          ; 0          ; 0             ; 1          ; 0            ; 0           ; 1          ;
+; state.RELEASE ; 0           ; 0          ; 0          ; 1             ; 0          ; 0            ; 0           ; 1          ;
+; state.EXT0    ; 0           ; 0          ; 1          ; 0             ; 0          ; 0            ; 0           ; 1          ;
+; state.EXT1    ; 0           ; 1          ; 0          ; 0             ; 0          ; 0            ; 0           ; 1          ;
+; state.CLRDP   ; 1           ; 0          ; 0          ; 0             ; 0          ; 0            ; 0           ; 1          ;
++---------------+-------------+------------+------------+---------------+------------+--------------+-------------+------------+
+
+
++---------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                               ;
++----------------------------------------------------+---------------------+------------------------+
+; Latch Name                                         ; Latch Enable Signal ; Free of Timing Hazards ;
++----------------------------------------------------+---------------------+------------------------+
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|selbt         ; GND                 ; yes                    ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|relbt         ; GND                 ; yes                    ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|selE0         ; GND                 ; yes                    ;
+; Number of user-specified and inferred latches = 3  ;                     ;                        ;
++----------------------------------------------------+---------------------+------------------------+
+Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                                                                      ;
++-----------------------------------------------------------------------+---------------------------------------------------------------------------------+
+; Register name                                                         ; Reason for Removal                                                              ;
++-----------------------------------------------------------------------+---------------------------------------------------------------------------------+
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|key2code[8..12]                  ; Stuck at GND due to stuck port data_in                                          ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|hdata[4]                         ; Stuck at GND due to stuck port data_in                                          ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|key1code[8..12]                  ; Stuck at GND due to stuck port data_in                                          ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|key0code[8..12]                  ; Stuck at GND due to stuck port data_in                                          ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|hdata[4]     ; Stuck at GND due to stuck port data_in                                          ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|ps2_clk~reg0 ; Stuck at GND due to stuck port data_in                                          ;
+; Relogio:clock|Cl1                                                     ; Merged with Relogio:clock|En2                                                   ;
+; Relogio:clock|Cl2                                                     ; Merged with Relogio:clock|En3                                                   ;
+; Relogio:clock|Cl3                                                     ; Merged with Relogio:clock|En4                                                   ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|key2code[13,14]                  ; Merged with ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|key2code[15]                   ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|key1code[14,15]                  ; Merged with ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|key1code[13]                   ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|key0code[14,15]                  ; Merged with ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|key0code[13]                   ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|hdata[5..7]                      ; Merged with ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|hdata[3]                       ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|hdata[2]                         ; Merged with ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|hdata[0]                       ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|hdata[5..7]  ; Merged with ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|hdata[3]   ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|hdata[2]     ; Merged with ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|hdata[0]   ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|laststate[0..2]                  ; Stuck at GND due to stuck port data_in                                          ;
+; pll:C|pll_altpll_0:altpll_0|prev_reset                                ; Stuck at GND due to stuck port data_in                                          ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|siguplights                      ; Stuck at GND due to stuck port data_in                                          ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|hdata[1]                         ; Stuck at GND due to stuck port data_in                                          ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|hdata[0]                         ; Stuck at VCC due to stuck port data_in                                          ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|hdata[1]     ; Stuck at GND due to stuck port data_in                                          ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|hdata[0]     ; Merged with ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|sigsending ;
+; Total Number of Removed Registers = 44                                ;                                                                                 ;
++-----------------------------------------------------------------------+---------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                                   ;
++-----------------------------------------------+---------------------------+-------------------------------------------------------------------+
+; Register name                                 ; Reason for Removal        ; Registers Removed due to This Register                            ;
++-----------------------------------------------+---------------------------+-------------------------------------------------------------------+
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|hdata[4] ; Stuck at GND              ; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|hdata[4] ;
+;                                               ; due to stuck port data_in ;                                                                   ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|hdata[1] ; Stuck at GND              ; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|hdata[1] ;
+;                                               ; due to stuck port data_in ;                                                                   ;
++-----------------------------------------------+---------------------------+-------------------------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -254,65 +362,75 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 141   ;
+; Total registers                              ; 322   ;
 ; Number of registers using Synchronous Clear  ; 26    ;
 ; Number of registers using Synchronous Load   ; 68    ;
-; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Clear ; 127   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 115   ;
+; Number of registers using Clock Enable       ; 225   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
 
-+---------------------------------------------------+
-; Inverted Register Statistics                      ;
-+-----------------------------------------+---------+
-; Inverted Register                       ; Fan out ;
-+-----------------------------------------+---------+
-; SYNC:C1|SQ_Y2[9]                        ; 33      ;
-; SYNC:C1|SQ_Y2[8]                        ; 46      ;
-; SYNC:C1|SQ_Y2[7]                        ; 51      ;
-; SYNC:C1|SQ_Y2[6]                        ; 61      ;
-; SYNC:C1|SQ_Y2[5]                        ; 50      ;
-; SYNC:C1|SQ_Y2[3]                        ; 61      ;
-; SYNC:C1|SQ_X2[8]                        ; 10      ;
-; SYNC:C1|SQ_X2[7]                        ; 10      ;
-; SYNC:C1|SQ_X2[6]                        ; 11      ;
-; SYNC:C1|SQ_X2[3]                        ; 33      ;
-; SYNC:C1|SQ_X2[2]                        ; 24      ;
-; SYNC:C1|SQ_Y1[9]                        ; 34      ;
-; SYNC:C1|SQ_Y1[8]                        ; 52      ;
-; SYNC:C1|SQ_Y1[7]                        ; 67      ;
-; SYNC:C1|SQ_Y1[6]                        ; 67      ;
-; SYNC:C1|SQ_Y1[5]                        ; 52      ;
-; SYNC:C1|SQ_Y1[3]                        ; 36      ;
-; SYNC:C1|SQ_X1[8]                        ; 50      ;
-; SYNC:C1|SQ_X1[7]                        ; 46      ;
-; SYNC:C1|SQ_X1[5]                        ; 39      ;
-; SYNC:C1|SQ_X1[4]                        ; 39      ;
-; SYNC:C1|SQ_X1[1]                        ; 24      ;
-; Total number of inverted registers = 22 ;         ;
-+-----------------------------------------+---------+
++-----------------------------------------------------------------------------------+
+; Inverted Register Statistics                                                      ;
++-------------------------------------------------------------------------+---------+
+; Inverted Register                                                       ; Fan out ;
++-------------------------------------------------------------------------+---------+
+; SYNC:C1|SQ_Y2[9]                                                        ; 33      ;
+; SYNC:C1|SQ_Y2[8]                                                        ; 46      ;
+; SYNC:C1|SQ_Y2[7]                                                        ; 56      ;
+; SYNC:C1|SQ_Y2[6]                                                        ; 60      ;
+; SYNC:C1|SQ_Y2[5]                                                        ; 49      ;
+; SYNC:C1|SQ_Y2[3]                                                        ; 62      ;
+; SYNC:C1|SQ_X2[8]                                                        ; 10      ;
+; SYNC:C1|SQ_X2[7]                                                        ; 10      ;
+; SYNC:C1|SQ_X2[6]                                                        ; 11      ;
+; SYNC:C1|SQ_X2[3]                                                        ; 34      ;
+; SYNC:C1|SQ_X2[2]                                                        ; 25      ;
+; SYNC:C1|SQ_Y1[9]                                                        ; 37      ;
+; SYNC:C1|SQ_Y1[8]                                                        ; 48      ;
+; SYNC:C1|SQ_Y1[7]                                                        ; 65      ;
+; SYNC:C1|SQ_Y1[6]                                                        ; 68      ;
+; SYNC:C1|SQ_Y1[5]                                                        ; 54      ;
+; SYNC:C1|SQ_Y1[3]                                                        ; 35      ;
+; SYNC:C1|SQ_X1[8]                                                        ; 52      ;
+; SYNC:C1|SQ_X1[7]                                                        ; 47      ;
+; SYNC:C1|SQ_X1[5]                                                        ; 38      ;
+; SYNC:C1|SQ_X1[4]                                                        ; 40      ;
+; SYNC:C1|SQ_X1[1]                                                        ; 23      ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|sigclkreleased ; 2       ;
+; ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|sigsending                         ; 2       ;
+; Total number of inverted registers = 24                                 ;         ;
++-------------------------------------------------------------------------+---------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                           ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
-; 3:1                ; 5 bits    ; 10 LEs        ; 0 LEs                ; 10 LEs                 ; Yes        ; |VGA|SYNC:C1|SQ_X1[10]     ;
-; 3:1                ; 5 bits    ; 10 LEs        ; 0 LEs                ; 10 LEs                 ; Yes        ; |VGA|SYNC:C1|SQ_X2[1]      ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ_Y1[10]     ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ_Y2[1]      ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ1_Jump[4]   ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ2_Jump[7]   ;
-; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |VGA|SYNC:C1|G[3]          ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 8 LEs                ; 2 LEs                  ; Yes        ; |VGA|SYNC:C1|R[2]          ;
-; 3:1                ; 5 bits    ; 10 LEs        ; 0 LEs                ; 10 LEs                 ; Yes        ; |VGA|SYNC:C1|SQ_X1[5]      ;
-; 3:1                ; 5 bits    ; 10 LEs        ; 0 LEs                ; 10 LEs                 ; Yes        ; |VGA|SYNC:C1|SQ_X2[8]      ;
-; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ_Y1[6]      ;
-; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ_Y2[9]      ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                        ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                              ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------+
+; 3:1                ; 5 bits    ; 10 LEs        ; 0 LEs                ; 10 LEs                 ; Yes        ; |VGA|SYNC:C1|SQ_X1[3]                                                   ;
+; 3:1                ; 5 bits    ; 10 LEs        ; 0 LEs                ; 10 LEs                 ; Yes        ; |VGA|SYNC:C1|SQ_X2[1]                                                   ;
+; 3:1                ; 12 bits   ; 24 LEs        ; 0 LEs                ; 24 LEs                 ; Yes        ; |VGA|ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|count[1]  ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |VGA|ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|rcount[3] ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |VGA|ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|fcount[2] ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ_Y1[4]                                                   ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ_Y2[2]                                                   ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ1_Jump[2]                                                ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ2_Jump[16]                                               ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |VGA|SYNC:C1|G[3]                                                       ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 8 LEs                ; 2 LEs                  ; Yes        ; |VGA|SYNC:C1|R[0]                                                       ;
+; 3:1                ; 5 bits    ; 10 LEs        ; 0 LEs                ; 10 LEs                 ; Yes        ; |VGA|SYNC:C1|SQ_X1[5]                                                   ;
+; 3:1                ; 5 bits    ; 10 LEs        ; 0 LEs                ; 10 LEs                 ; Yes        ; |VGA|SYNC:C1|SQ_X2[3]                                                   ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |VGA|ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|rcount[7] ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |VGA|ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|fcount[5] ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ_Y1[7]                                                   ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |VGA|SYNC:C1|SQ_Y2[3]                                                   ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |VGA|ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|state.CODE                    ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |VGA|ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|Selector13                    ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 6 LEs                ; 4 LEs                  ; No         ; |VGA|ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|Selector12                    ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------+
 
 
 +----------------------------------------------------+
@@ -331,6 +449,26 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +---------------------------------+-------+------+-----------------------------------------------------------------------+
 ; AUTO_SHIFT_REGISTER_RECOGNITION ; OFF   ; -    ; -                                                                     ;
 +---------------------------------+-------+------+-----------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl ;
++----------------+-------+----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                     ;
++----------------+-------+----------------------------------------------------------+
+; clkfreq        ; 24000 ; Signed Integer                                           ;
++----------------+-------+----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl ;
++----------------+-------+------------------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                                         ;
++----------------+-------+------------------------------------------------------------------------------+
+; clkfreq        ; 24000 ; Signed Integer                                                               ;
++----------------+-------+------------------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
 +-------------------------------------------------------------------------------------+
@@ -724,6 +862,15 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-------------------------------+----------------------------------------+
 
 
++---------------------------------------------------------+
+; Port Connectivity Checks: "Relogio:clock|BCDN:segundo1" ;
++------+-------+----------+-------------------------------+
+; Port ; Type  ; Severity ; Details                       ;
++------+-------+----------+-------------------------------+
+; e    ; Input ; Info     ; Stuck at VCC                  ;
++------+-------+----------+-------------------------------+
+
+
 +---------------------------------------------------------------------------------------------------------------------+
 ; Port Connectivity Checks: "pll:C|pll_altpll_0:altpll_0"                                                             ;
 +-----------+--------+----------+-------------------------------------------------------------------------------------+
@@ -735,12 +882,21 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------+--------+----------+-------------------------------------------------------------------------------------+
 
 
++-----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "ps2_kbd:keyboard"                                                                    ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+; Port  ; Type   ; Severity ; Details                                                                             ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+; space ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+
+
 +-------------------------------+
 ; Elapsed Time Per Partition    ;
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:18     ;
+; Top            ; 00:00:25     ;
 +----------------+--------------+
 
 
@@ -750,9 +906,33 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 32-bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Sun Jun 11 17:15:39 2017
+    Info: Processing started: Mon Jun 12 20:46:38 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off VGA -c VGA
 Warning (20028): Parallel compilation is not licensed and has been disabled
+Info (12021): Found 2 design units, including 1 entities, in source file keyboard/ps2_kbd.vhd
+    Info (12022): Found design unit 1: ps2_kbd-struct
+    Info (12023): Found entity 1: ps2_kbd
+Info (12021): Found 2 design units, including 1 entities, in source file keyboard/ps2_iobase.vhd
+    Info (12022): Found design unit 1: ps2_iobase-rtl
+    Info (12023): Found entity 1: ps2_iobase
+Info (12021): Found 2 design units, including 1 entities, in source file keyboard/kbdex_ctrl.vhd
+    Info (12022): Found design unit 1: kbdex_ctrl-rtl
+    Info (12023): Found entity 1: kbdex_ctrl
+Info (12021): Found 2 design units, including 1 entities, in source file relogio/Relogio.vhd
+    Info (12022): Found design unit 1: Relogio-Comportamento
+    Info (12023): Found entity 1: Relogio
+Info (12021): Found 3 design units, including 1 entities, in source file relogio/conv7_seg.vhd
+    Info (12022): Found design unit 1: conv_7seg_package
+    Info (12022): Found design unit 2: conv_7seg-Behaviour
+    Info (12023): Found entity 1: conv_7seg
+Info (12021): Found 3 design units, including 1 entities, in source file relogio/clockDivisor.vhd
+    Info (12022): Found design unit 1: clockDivisor_package
+    Info (12022): Found design unit 2: clockDivisor-Behavior
+    Info (12023): Found entity 1: clockDivisor
+Info (12021): Found 3 design units, including 1 entities, in source file relogio/BCDN.vhd
+    Info (12022): Found design unit 1: BCDN_package
+    Info (12022): Found design unit 2: BCDN-Behaviour
+    Info (12023): Found entity 1: BCDN
 Info (12021): Found 2 design units, including 0 entities, in source file GameMap.vhd
     Info (12022): Found design unit 1: GameMap
     Info (12022): Found design unit 2: GameMap-body
@@ -775,7 +955,49 @@ Info (12021): Found 2 design units, including 0 entities, in source file pcg.vhd
     Info (12022): Found design unit 1: MY
     Info (12022): Found design unit 2: MY-body
 Info (12127): Elaborating entity "VGA" for the top level hierarchy
-Warning (10541): VHDL Signal Declaration warning at VGA.vhd(21): used implicit default value for signal "RESET" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
+Warning (10541): VHDL Signal Declaration warning at VGA.vhd(40): used implicit default value for signal "RESET" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
+Warning (10036): Verilog HDL or VHDL warning at VGA.vhd(41): object "space" assigned a value but never read
+Info (12128): Elaborating entity "ps2_kbd" for hierarchy "ps2_kbd:keyboard"
+Warning (10541): VHDL Signal Declaration warning at ps2_kbd.vhd(30): used implicit default value for signal "lights" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
+Info (12128): Elaborating entity "kbdex_ctrl" for hierarchy "ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl"
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(100): signal "en" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(123): signal "fetchdata" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(125): signal "fetchdata" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(127): signal "fetchdata" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(178): signal "sigfetch" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10631): VHDL Process Statement warning at kbdex_ctrl.vhd(187): inferring latch(es) for signal or variable "selE0", which holds its previous value in one or more paths through the process
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(212): signal "key0en" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(222): signal "key1en" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(232): signal "key2en" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10631): VHDL Process Statement warning at kbdex_ctrl.vhd(241): inferring latch(es) for signal or variable "relbt", which holds its previous value in one or more paths through the process
+Warning (10631): VHDL Process Statement warning at kbdex_ctrl.vhd(251): inferring latch(es) for signal or variable "selbt", which holds its previous value in one or more paths through the process
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(268): signal "datacode" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(268): signal "key0code" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(268): signal "key1code" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(269): signal "datacode" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(269): signal "key2code" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(270): signal "key0code" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(272): signal "key1code" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(274): signal "key2code" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(281): signal "datacode" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(282): signal "key0code" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(284): signal "key1code" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(286): signal "key2code" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(289): signal "datacode" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(290): signal "key0code" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(292): signal "key1code" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(294): signal "key2code" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(299): signal "key0code" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(299): signal "datacode" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(301): signal "key1code" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(301): signal "datacode" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(303): signal "key2code" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning (10492): VHDL Process Statement warning at kbdex_ctrl.vhd(303): signal "datacode" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Info (10041): Inferred latch for "selbt" at kbdex_ctrl.vhd(251)
+Info (10041): Inferred latch for "relbt" at kbdex_ctrl.vhd(241)
+Info (10041): Inferred latch for "selE0" at kbdex_ctrl.vhd(187)
+Info (12128): Elaborating entity "ps2_iobase" for hierarchy "ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl"
+Warning (10492): VHDL Process Statement warning at ps2_iobase.vhd(161): signal "sigsending" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
 Info (12128): Elaborating entity "pll" for hierarchy "pll:C"
 Info (12128): Elaborating entity "pll_altpll_0" for hierarchy "pll:C|pll_altpll_0:altpll_0"
 Info (12128): Elaborating entity "pll_altpll_0_stdsync_sv6" for hierarchy "pll:C|pll_altpll_0:altpll_0|pll_altpll_0_stdsync_sv6:stdsync2"
@@ -812,26 +1034,45 @@ Warning (10540): VHDL Signal Declaration warning at Vhdl2.vhd(81): used explicit
 Warning (10540): VHDL Signal Declaration warning at Vhdl2.vhd(82): used explicit default value for signal "Y1size" because signal was never assigned a value
 Warning (10540): VHDL Signal Declaration warning at Vhdl2.vhd(83): used explicit default value for signal "X2size" because signal was never assigned a value
 Warning (10540): VHDL Signal Declaration warning at Vhdl2.vhd(84): used explicit default value for signal "Y2size" because signal was never assigned a value
+Info (12128): Elaborating entity "Relogio" for hierarchy "Relogio:clock"
+Info (12128): Elaborating entity "conv_7seg" for hierarchy "Relogio:clock|conv_7seg:conv0"
+Info (12128): Elaborating entity "clockDivisor" for hierarchy "Relogio:clock|clockDivisor:cd"
+Info (12128): Elaborating entity "BCDN" for hierarchy "Relogio:clock|BCDN:segundo1"
+Warning (10492): VHDL Process Statement warning at BCDN.vhd(31): signal "E" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Info (13000): Registers with preset signals will power-up high
+Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
+Warning (13004): Presettable and clearable registers converted to equivalent circuits with latches. Registers power-up to an undefined state, and DEVCLRn places the registers in an undefined state.
+    Warning (13310): Register "ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|ps2_data~en" is converted into an equivalent circuit using register "ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|ps2_data~en_emulated" and latch "ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|ps2_data~1"
+    Warning (13310): Register "ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|send_rdy" is converted into an equivalent circuit using register "ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|send_rdy~_emulated" and latch "ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|send_rdy~1"
+Critical Warning (18061): Ignored Power-Up Level option on the following registers
+    Critical Warning (18010): Register ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|fcount[7] will power up to Low
+    Critical Warning (18010): Register ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|fcount[5] will power up to Low
+    Critical Warning (18010): Register ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|rcount[7] will power up to Low
+    Critical Warning (18010): Register ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|rcount[5] will power up to Low
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 1 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 8 input pin(s) that do not drive logic
+Warning (21074): Design contains 11 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "CLOCK_24[1]"
+    Warning (15610): No output dependent on input pin "CLOCK_27[0]"
+    Warning (15610): No output dependent on input pin "CLOCK_27[1]"
     Warning (15610): No output dependent on input pin "SW[2]"
     Warning (15610): No output dependent on input pin "SW[3]"
     Warning (15610): No output dependent on input pin "SW[4]"
     Warning (15610): No output dependent on input pin "SW[5]"
     Warning (15610): No output dependent on input pin "SW[6]"
     Warning (15610): No output dependent on input pin "SW[7]"
-    Warning (15610): No output dependent on input pin "KEY[3]"
-Info (21057): Implemented 4502 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 16 input pins
-    Info (21059): Implemented 22 output pins
-    Info (21061): Implemented 4463 logic cells
+    Warning (15610): No output dependent on input pin "KEY[0]"
+    Warning (15610): No output dependent on input pin "KEY[1]"
+Info (21057): Implemented 4957 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 19 input pins
+    Info (21059): Implemented 50 output pins
+    Info (21060): Implemented 2 bidirectional pins
+    Info (21061): Implemented 4885 logic cells
     Info (21065): Implemented 1 PLLs
-Info: Quartus II 32-bit Analysis & Synthesis was successful. 0 errors, 15 warnings
-    Info: Peak virtual memory: 430 megabytes
-    Info: Processing ended: Sun Jun 11 17:16:01 2017
-    Info: Elapsed time: 00:00:22
-    Info: Total CPU time (on all processors): 00:00:22
+Info: Quartus II 32-bit Analysis & Synthesis was successful. 0 errors, 63 warnings
+    Info: Peak virtual memory: 432 megabytes
+    Info: Processing ended: Mon Jun 12 20:47:42 2017
+    Info: Elapsed time: 00:01:04
+    Info: Total CPU time (on all processors): 00:00:24
 
 
