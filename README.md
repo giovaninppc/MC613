@@ -1,4 +1,4 @@
-# MC613 - Laboratório de Cricuitos Digitais
+# MC613 - Laboratório de Circuitos Digitais
 ### Unicamp (1S-2017)
 ### Giovani Nascimento Pereira & Seong Eun Kim & Ignácio Espinoso Ribeiro
 
