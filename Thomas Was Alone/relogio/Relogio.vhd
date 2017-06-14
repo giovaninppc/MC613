@@ -47,15 +47,15 @@ begin
 	-- Contadores de tempo
 	segundo1: BCDN PORT MAP(SysClock, Cl1, En, seg1);
 			
-	segundo2: BCDN PORT MAP(SysClock, Cl2, En2, seg2);
+	segundo2: BCDN PORT MAP(SysClock, Cl2, En2 AND En, seg2);
 	
-	minuto1: BCDN  PORT MAP(SysClock, Cl3, En3, min1);
+	minuto1: BCDN  PORT MAP(SysClock, Cl3, En3 AND En, min1);
 						
-	minuto2: BCDN  PORT MAP(SysClock, Cl4, En4, min2);
+	minuto2: BCDN  PORT MAP(SysClock, Cl4, En4 AND En, min2);
 				
-	hora1: BCDN	PORT MAP(SysClock, Cl5, En5, hr1);
+	hora1: BCDN	PORT MAP(SysClock, Cl5, En5 AND En, hr1);
 						
-	hora2: BCDN PORT MAP(SysClock, Cl6, En6, hr2);
+	hora2: BCDN PORT MAP(SysClock, Cl6, En6 AND En, hr2);
 	
 	
 	PROCESS (SysClock)
