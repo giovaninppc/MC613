@@ -3,47 +3,47 @@ TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow Model Setup 'C|altpll_0|sd1|pll|clk[0]'
-Slack : -7.300
-TNS   : -712.328
+Slack : -6.821
+TNS   : -689.400
 
 Type  : Slow Model Setup 'CLOCK_50'
-Slack : -5.672
-TNS   : -110.747
+Slack : -5.649
+TNS   : -110.462
 
 Type  : Slow Model Setup 'CLOCK_24[0]'
-Slack : -3.707
-TNS   : -161.327
+Slack : -4.489
+TNS   : -208.143
 
 Type  : Slow Model Setup 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|sigtrigger'
-Slack : -2.813
-TNS   : -41.995
+Slack : -2.709
+TNS   : -41.633
 
 Type  : Slow Model Setup 'Relogio:clock|clockDivisor:cd|temp'
-Slack : -1.470
-TNS   : -17.042
+Slack : -1.318
+TNS   : -13.794
 
 Type  : Slow Model Setup 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|sigsend'
-Slack : -0.858
-TNS   : -0.858
+Slack : -0.557
+TNS   : -0.557
 
 Type  : Slow Model Hold 'CLOCK_24[0]'
-Slack : -2.694
-TNS   : -2.694
+Slack : -2.696
+TNS   : -2.696
 
 Type  : Slow Model Hold 'CLOCK_50'
-Slack : -2.694
-TNS   : -2.694
+Slack : -2.689
+TNS   : -2.689
 
 Type  : Slow Model Hold 'Relogio:clock|clockDivisor:cd|temp'
-Slack : 0.445
+Slack : -0.524
+TNS   : -2.096
+
+Type  : Slow Model Hold 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|sigsend'
+Slack : 0.311
 TNS   : 0.000
 
 Type  : Slow Model Hold 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|sigtrigger'
 Slack : 0.445
-TNS   : 0.000
-
-Type  : Slow Model Hold 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|sigsend'
-Slack : 0.612
 TNS   : 0.000
 
 Type  : Slow Model Hold 'C|altpll_0|sd1|pll|clk[0]'
@@ -51,35 +51,35 @@ Slack : 0.629
 TNS   : 0.000
 
 Type  : Slow Model Recovery 'CLOCK_24[0]'
-Slack : -3.229
-TNS   : -90.219
+Slack : -3.535
+TNS   : -85.920
 
 Type  : Slow Model Recovery 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|sigtrigger'
-Slack : -3.060
-TNS   : -38.881
-
-Type  : Slow Model Recovery 'KEY[3]'
-Slack : -1.222
-TNS   : -1.222
+Slack : -3.294
+TNS   : -46.868
 
 Type  : Slow Model Recovery 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|sigsend'
-Slack : -1.152
-TNS   : -2.234
+Slack : -1.100
+TNS   : -1.943
 
-Type  : Slow Model Removal 'CLOCK_24[0]'
-Slack : 0.455
-TNS   : 0.000
+Type  : Slow Model Recovery 'KEY[3]'
+Slack : -0.812
+TNS   : -0.812
 
 Type  : Slow Model Removal 'KEY[3]'
-Slack : 0.904
+Slack : -0.137
+TNS   : -0.137
+
+Type  : Slow Model Removal 'CLOCK_24[0]'
+Slack : 0.631
 TNS   : 0.000
 
 Type  : Slow Model Removal 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|sigsend'
-Slack : 1.834
+Slack : 1.595
 TNS   : 0.000
 
 Type  : Slow Model Removal 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|sigtrigger'
-Slack : 2.002
+Slack : 1.750
 TNS   : 0.000
 
 Type  : Slow Model Minimum Pulse Width 'CLOCK_50'
@@ -111,83 +111,83 @@ Slack : 19.722
 TNS   : 0.000
 
 Type  : Fast Model Setup 'CLOCK_50'
-Slack : -1.665
-TNS   : -27.096
+Slack : -1.650
+TNS   : -26.928
 
 Type  : Fast Model Setup 'CLOCK_24[0]'
-Slack : -1.291
-TNS   : -49.516
+Slack : -1.585
+TNS   : -66.899
 
 Type  : Fast Model Setup 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|sigtrigger'
-Slack : -1.198
-TNS   : -10.462
+Slack : -1.245
+TNS   : -11.277
 
 Type  : Fast Model Setup 'C|altpll_0|sd1|pll|clk[0]'
-Slack : -0.536
-TNS   : -23.734
+Slack : -0.756
+TNS   : -44.395
 
 Type  : Fast Model Setup 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|sigsend'
-Slack : -0.463
-TNS   : -0.463
+Slack : -0.347
+TNS   : -0.347
 
 Type  : Fast Model Setup 'Relogio:clock|clockDivisor:cd|temp'
-Slack : 0.019
+Slack : 0.072
 TNS   : 0.000
-
-Type  : Fast Model Hold 'CLOCK_50'
-Slack : -1.725
-TNS   : -1.725
 
 Type  : Fast Model Hold 'CLOCK_24[0]'
-Slack : -1.723
-TNS   : -2.308
+Slack : -1.725
+TNS   : -1.781
+
+Type  : Fast Model Hold 'CLOCK_50'
+Slack : -1.718
+TNS   : -1.718
 
 Type  : Fast Model Hold 'Relogio:clock|clockDivisor:cd|temp'
-Slack : 0.215
-TNS   : 0.000
+Slack : -0.968
+TNS   : -3.872
 
 Type  : Fast Model Hold 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|sigtrigger'
 Slack : 0.215
+TNS   : 0.000
+
+Type  : Fast Model Hold 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|sigsend'
+Slack : 0.229
 TNS   : 0.000
 
 Type  : Fast Model Hold 'C|altpll_0|sd1|pll|clk[0]'
 Slack : 0.243
 TNS   : 0.000
 
-Type  : Fast Model Hold 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|sigsend'
-Slack : 0.345
-TNS   : 0.000
+Type  : Fast Model Recovery 'CLOCK_24[0]'
+Slack : -1.366
+TNS   : -30.718
 
 Type  : Fast Model Recovery 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|sigtrigger'
-Slack : -1.372
-TNS   : -10.932
-
-Type  : Fast Model Recovery 'CLOCK_24[0]'
-Slack : -1.245
-TNS   : -33.481
+Slack : -1.311
+TNS   : -13.010
 
 Type  : Fast Model Recovery 'KEY[3]'
-Slack : -1.083
-TNS   : -1.083
+Slack : -0.851
+TNS   : -0.851
 
 Type  : Fast Model Recovery 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|sigsend'
-Slack : 0.038
+Slack : 0.074
 TNS   : 0.000
 
 Type  : Fast Model Removal 'CLOCK_24[0]'
-Slack : -0.249
-TNS   : -2.241
-
-Type  : Fast Model Removal 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|sigsend'
-Slack : 0.813
-TNS   : 0.000
+Slack : -0.149
+TNS   : -1.341
 
 Type  : Fast Model Removal 'KEY[3]'
-Slack : 0.918
+Slack : 0.459
+TNS   : 0.000
+
+Type  : Fast Model Removal 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|sigsend'
+Slack : 0.722
 TNS   : 0.000
 
 Type  : Fast Model Removal 'ps2_kbd:keyboard|kbdex_ctrl:kbd_ctrl|ps2_iobase:ps2_ctrl|sigtrigger'
-Slack : 0.957
+Slack : 0.915
 TNS   : 0.000
 
 Type  : Fast Model Minimum Pulse Width 'CLOCK_50'

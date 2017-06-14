@@ -8,7 +8,8 @@ use work.BCDN_package.all;
 use work.clockDivisor_package.all;
 
 entity Relogio is
-	port (HEX0 : out std_logic_vector(6 downto 0);
+	port (En: in std_logic;
+			HEX0 : out std_logic_vector(6 downto 0);
 			HEX1 : out std_logic_vector(6 downto 0);
 			HEX2 : out std_logic_vector(6 downto 0);
 			HEX3 : out std_logic_vector(6 downto 0);
@@ -44,7 +45,7 @@ begin
 	cd: clockDivisor PORT MAP(CLOCK_50, SysClock);
 	
 	-- Contadores de tempo
-	segundo1: BCDN PORT MAP(SysClock, Cl1, '1', seg1);
+	segundo1: BCDN PORT MAP(SysClock, Cl1, En, seg1);
 			
 	segundo2: BCDN PORT MAP(SysClock, Cl2, En2, seg2);
 	
